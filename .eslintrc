@@ -55,7 +55,12 @@
                 ]
             }
         ],
-        "no-restricted-syntax": ["warn", "ForInStatement", "LabeledStatement", "WithStatement"],
+        "no-restricted-syntax": [
+            "warn",
+            "ForInStatement",
+            "LabeledStatement",
+            "WithStatement"
+        ],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "warn",
         "no-unmodified-loop-condition": "warn",
@@ -144,24 +149,28 @@
         "simple-import-sort/imports": [
             "warn",
             {
-                "groups": [[
-                    // Side effect imports
-                    "^\\u0000",
-                    // Node.js builtins prefixed with `node:`
-                    "^node:",
-                    // Packages
-                    // `react` related packages come first.
-                    "^react", "^@?\\w",
-                    // Anything not matched in another group
-                    "^",
-                    // Relative imports
-                    // Relative to the project root
-                    "^~/.+",
-                    // Anything that starts with a dot
-                    "^\\.",
-                    // Style imports
-                    "^.+\\.css$", "^.+\\.styles$"
-                ]]
+                "groups": [
+                    [
+                        // Side effect imports
+                        "^\\u0000",
+                        // Node.js builtins prefixed with `node:`
+                        "^node:",
+                        // Packages
+                        // `react` related packages come first.
+                        "^react",
+                        "^@?\\w",
+                        // Anything not matched in another group
+                        "^",
+                        // Relative imports
+                        // Relative to the project root
+                        "^~/.+",
+                        // Anything that starts with a dot
+                        "^\\.",
+                        // Style imports
+                        "^.+\\.css$",
+                        "^.+\\.styles$"
+                    ]
+                ]
             }
         ],
         "yoda": [
@@ -183,7 +192,8 @@
         {
             "files": [
                 "./app/**/*.tsx",
-                "./app/**/*.stories.tsx"
+                "./**/*.stories.tsx",
+                "./**/*.stories.ts"
             ],
             "rules": {
                 "react/no-multi-comp": "off"
@@ -191,8 +201,9 @@
         },
         {
             "files": [
-                "./app/**/*.tsx",
-                "./app/**/*.stories.tsx",
+                "./**/*.tsx",
+                "./**/*.stories.tsx",
+                "./**/*.stories.ts",
                 "./.storybook/**/*.ts",
                 "./.storybook/**/*.tsx",
                 "**/*.d.ts"

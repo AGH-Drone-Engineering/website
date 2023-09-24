@@ -1,10 +1,6 @@
 {
     "compilerOptions": {
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
+        "lib": ["dom", "dom.iterable", "esnext"],
         "skipLibCheck": true,
         "noEmit": true,
         "incremental": true,
@@ -19,9 +15,7 @@
         "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "paths": {
-            "~/*": [
-                "./*"
-            ]
+            "~/*": ["./*"]
         },
         "removeComments": false,
         "declaration": false,
@@ -31,6 +25,7 @@
         "noImplicitThis": true,
         "alwaysStrict": true,
         "allowJs": false,
+        "skipDefaultLibCheck": true,
         "forceConsistentCasingInFileNames": false,
         "plugins": [
             {
@@ -38,13 +33,6 @@
             }
         ]
     },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules/**/*"]
 }
