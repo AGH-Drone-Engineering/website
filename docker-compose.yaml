@@ -9,13 +9,12 @@ services:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_USER: "${DB_USER}"
       MYSQL_PASSWORD: "${DB_USER_PASSWORD}"
-  wordpress:
-    depends_on:
-      - db
-    image: php:8.2-apache
-    restart: unless-stopped
-    ports:
-      - "8000:80"
+    volumes:
+      - mysql:/var/lib/mysql
+
+  php:
+    image: wordpress-php
+    build: "./php"
     environment:
       DB_NAME: "${DB_NAME}"
       DB_USER: "${DB_USER}"
@@ -23,7 +22,7 @@ services:
       DB_HOST: db:3306
       WP_ENV: development
       WP_HOME: "http://localhost:8000"
-      WP_SITEURL: "http://localhost:8000"
+      WP_SITEURL: "http://localhost:8000/wp"
       AUTH_KEY: "${WP_AUTH_KEY}"
       SECURE_AUTH_KEY: "${WP_SECURE_AUTH_KEY}"
       LOGGED_IN_KEY: "${WP_LOGGED_IN_KEY}"
@@ -34,6 +33,20 @@ services:
       NONCE_SALT: "${WP_NONCE_SALT}"
     volumes:
       - ./wordpress:/var/www/html
+
+  nginx:
+    image: wordpress-nginx
+    build: './nginx'
+    depends_on:
+      - php
+    restart: unless-stopped
+    environment:
+      - PHP_HOST=php
+    ports:
+      - "8000:80"
+    volumes:
+      - ./wordpress:/var/www/html
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     restart: unless-stopped
