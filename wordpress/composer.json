@@ -49,7 +49,7 @@
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.1.0",
         "wpackagist-plugin/wp-graphql": "^1.16",
-        "wpsyntex/polylang": "^3.4",
+        "wpackagist-plugin/polylang": "^3.4.5",
         "valu/wp-graphql-polylang": "^0.6.0"
     },
     "require-dev": {
