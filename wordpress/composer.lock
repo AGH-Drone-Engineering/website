@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6aa140b7ec64417b910947c099a4e33",
+    "content-hash": "c9a635dca6b8c41a158c8dc69b69004f",
     "packages": [
         {
             "name": "composer/installers",
@@ -1170,6 +1170,42 @@
             "time": "2022-10-16T01:01:54+00:00"
         },
         {
+            "name": "wpackagist-plugin/disable-comments",
+            "version": "2.4.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/disable-comments/",
+                "reference": "tags/2.4.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/disable-comments.2.4.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/disable-comments/"
+        },
+        {
+            "name": "wpackagist-plugin/faustwp",
+            "version": "1.0.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/faustwp/",
+                "reference": "tags/1.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/faustwp.1.0.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/faustwp/"
+        },
+        {
             "name": "wpackagist-plugin/polylang",
             "version": "3.4.5",
             "source": {
@@ -1204,6 +1240,15 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-graphql/"
+        },
+        {
+            "name": "wpengine/wp-graphql-content-blocks",
+            "version": "v1.2.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/wpengine/wp-graphql-content-blocks/releases/download/v1.2.0/wp-graphql-content-blocks.zip"
+            },
+            "type": "wordpress-plugin"
         }
     ],
     "packages-dev": [
