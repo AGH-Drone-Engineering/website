@@ -23,12 +23,16 @@
         "editor.codeActionsOnSave": {
             "source.fixAll": true
         },
-        "editor.formatOnSave": true,
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
         "typescript.format.enable": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "eslint.lintTask.enable": true,
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+        "editor.formatOnPaste": false, // required
+        "editor.formatOnType": false, // required
+        "editor.formatOnSave": true, // optional
+        "editor.formatOnSaveMode": "file", // required to format on save
+        "vs-code-prettier-eslint.prettierLast": false, // set as "true" to run 'prettier' last not first
         "i18n-ally.enabledFrameworks": ["react", "i18next", "general"],
         "i18n-ally.enabledParsers": ["json"],
         "i18n-ally.extract.autoDetect": true,

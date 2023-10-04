@@ -43,6 +43,7 @@
         "no-extra-semi": "off",
         "no-implied-eval": "error",
         "no-promise-executor-return": "warn",
+        "implicit-arrow-linebreak": ["warn", "beside"],
         "no-restricted-imports": [
             "error",
             {
@@ -206,7 +207,8 @@
                 "./**/*.stories.ts",
                 "./.storybook/**/*.ts",
                 "./.storybook/**/*.tsx",
-                "**/*.d.ts"
+                "**/*.d.ts",
+                "./codegen.ts"
             ],
             "rules": {
                 "import/no-default-export": "off"

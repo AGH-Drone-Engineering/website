@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { ColorSchemeScript } from '@mantine/core';
-import { Providers } from '~/lib/Providers';
+import { Providers } from '~/context/Providers';
 import '@mantine/core/styles.css';
 
 export const dynamic = 'error';
