@@ -1,4 +1,4 @@
-import { GetSeedNodeQuery } from '~/models/graphql.generated/graphql';
+import { GetSeedNodeQuery } from '~/models/graphql.generated';
 
 export interface TemplateProps {
     uri: string;

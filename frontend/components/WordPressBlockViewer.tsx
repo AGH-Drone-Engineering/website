@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { EditorBlock } from '~/api/queries/getEditorBlocks';
+import { EditorBlockTree } from '~/api/queries/getEditorBlocks';
 import { Fallback } from '~/blocks/Fallback';
 import { useBlockMapping } from '~/context/blocksContext';
 import { getComponentForBlock } from '~/lib/getComponentForBlock';
 
 interface WordPressBlockViewerProps {
-    blocks: (EditorBlock | null)[];
+    blocks: (EditorBlockTree | null)[];
 }
 
 export const WordPressBlockViewer: React.FC<WordPressBlockViewerProps> = ({

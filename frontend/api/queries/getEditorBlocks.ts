@@ -21,7 +21,7 @@ export const getEditorBlocksByUri: TypedDocumentNode<GetEditorBlocksByUriQuery> 
     }
 `;
 
-export type EditorBlock = Defined<
+type EditorBlock = Defined<
     Defined<
         Exclude<
             Defined<GetEditorBlocksByUriQuery['contentNode']>,
@@ -29,3 +29,5 @@ export type EditorBlock = Defined<
         >['editorBlocks']
     >[number]
 >;
+
+export type EditorBlockTree = EditorBlock & { innerBlocks?: EditorBlock[] };
