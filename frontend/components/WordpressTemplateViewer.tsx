@@ -4,7 +4,7 @@ import React from 'react';
 import invariant from 'tiny-invariant';
 import { useTemplateMapping } from '~/context/templatesContext';
 import { getTemplate } from '~/lib/getTemplate';
-import { GetSeedNodeQuery } from '~/models/graphql.generated/graphql';
+import { GetSeedNodeQuery } from '~/models/graphql.generated';
 
 interface WordpressTemplateViewerProps {
     seedQuery: GetSeedNodeQuery;

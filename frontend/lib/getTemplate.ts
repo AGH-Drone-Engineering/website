@@ -1,4 +1,4 @@
-import { GetSeedNodeQuery } from '~/models/graphql.generated/graphql';
+import { GetSeedNodeQuery } from '~/models/graphql.generated';
 import { WordpressTemplate } from '~/templates/types';
 
 export function getPossibleTemplates(seedQuery: GetSeedNodeQuery['nodeByUri']) {

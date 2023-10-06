@@ -1,2 +1,2 @@
 possibleTypes.json
-models/*.generated
+models/*.generated*
