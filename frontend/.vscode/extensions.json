@@ -8,6 +8,8 @@
         "yoavbls.pretty-ts-errors",
         "styled-components.vscode-styled-components",
         "esbenp.prettier-vscode",
-        "rvest.vs-code-prettier-eslint"
+        "rvest.vs-code-prettier-eslint",
+        "graphql.vscode-graphql-syntax",
+        "graphql.vscode-graphql"
     ]
 }
