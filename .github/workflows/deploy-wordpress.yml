@@ -68,9 +68,9 @@ jobs:
                 envkey_NONCE_SALT: "${{ secrets.WP_NONCE_SALT }}"
                 envkey_DB_PREFIX: "${{ vars.WP_DB_TABLE_PREFIX }}"
                 directory: ./wordpress
-            - name: Create htaccess file
+            - name: Create inner htaccess file
               run: |
-                cat << EOF > ./.htaccess
+                cat << EOF > web/.htaccess
                 # BEGIN WordPress
                 <IfModule mod_rewrite.c>
                 RewriteEngine On
@@ -83,6 +83,16 @@ jobs:
 
                 # END WordPress
 
+                EOF
+            - name: Create outer htaccess file
+              run: |
+                cat << EOF > .htaccess
+                <IfModule mod_rewrite.c>
+                RewriteEngine On
+                RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}
+                RewriteCond %{REQUEST_URI} !web/
+                RewriteRule ^(.*)$ /web/$1 [L]
+                </IfModule>
                 EOF
             - name: Upload files to the server
               uses: ./.github/actions/upload-files-to-server
