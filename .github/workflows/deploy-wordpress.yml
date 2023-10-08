@@ -49,25 +49,26 @@ jobs:
               with:
                 working_dir: ./wordpress
             - name: Populate wp env config file
-              run: |
-                cat << EOF > .env
-                DB_NAME="${{ vars.WP_DATABASE_NAME }}"
-                DB_USER="${{ vars.WP_DATABASE_USER }}"
-                DB_PASSWORD="${{ secrets.WP_DATABASE_PASSWORD }}"
-                DB_HOST="${{ vars.WP_DATABASE_HOST }}"
-                WP_ENV="${{ vars.WP_ENV }}"
-                WP_HOME="${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-                WP_SITEURL="${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp"
-                AUTH_KEY: "${{ secrets.WP_AUTH_KEY }}"
-                SECURE_AUTH_KEY="${{ secrets.WP_SECURE_AUTH_KEY }}"
-                LOGGED_IN_KEY="${{ secrets.WP_LOGGED_IN_KEY }}"
-                NONCE_KEY="${{ secrets.WP_NONCE_KEY }}"
-                AUTH_SALT="${{ secrets.WP_AUTH_SALT }}"
-                SECURE_AUTH_SALT="${{ secrets.WP_SECURE_AUTH_SALT }}"
-                LOGGED_IN_SALT="${{ secrets.WP_LOGGED_IN_SALT }}"
-                NONCE_SALT="${{ secrets.WP_NONCE_SALT }}"
-                DB_PREFIX="${{ vars.WP_DB_TABLE_PREFIX }}"
-                EOF
+              uses: SpicyPizza/create-envfile@v2.0
+              with:
+                envkey_DB_NAME: "${{ vars.WP_DATABASE_NAME }}"
+                envkey_DB_USER: "${{ vars.WP_DATABASE_USER }}"
+                envkey_DB_PASSWORD: "${{ secrets.WP_DATABASE_PASSWORD }}"
+                envkey_DB_HOST: "${{ vars.WP_DATABASE_HOST }}"
+                envkey_WP_ENV: "${{ vars.WP_ENV }}"
+                envkey_WP_HOME: "${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                envkey_WP_SITEURL: "${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp"
+                envkey_AUTH_KEY: "${{ secrets.WP_AUTH_KEY }}"
+                envkey_SECURE_AUTH_KEY: "${{ secrets.WP_SECURE_AUTH_KEY }}"
+                envkey_LOGGED_IN_KEY: "${{ secrets.WP_LOGGED_IN_KEY }}"
+                envkey_NONCE_KEY: "${{ secrets.WP_NONCE_KEY }}"
+                envkey_AUTH_SALT: "${{ secrets.WP_AUTH_SALT }}"
+                envkey_SECURE_AUTH_SALT: "${{ secrets.WP_SECURE_AUTH_SALT }}"
+                envkey_LOGGED_IN_SALT: "${{ secrets.WP_LOGGED_IN_SALT }}"
+                envkey_NONCE_SALT: "${{ secrets.WP_NONCE_SALT }}"
+                envkey_DB_PREFIX: "${{ vars.WP_DB_TABLE_PREFIX }}"
+                directory: ./wordpress
+
             - name: Upload files to the server
               uses: ./.github/actions/upload-files-to-server
               with:
