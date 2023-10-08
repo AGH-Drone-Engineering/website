@@ -24,13 +24,13 @@ jobs:
         env:
             VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
             VERCEL_PROJECT_ID: "${{ secrets.VERCEL_PROJECT_ID }}"
-            NEXT_PUBLIC_WORDPRESS_URL: "${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+            NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
         steps:
             - uses: actions/checkout@v2
             - name: "Install Vercel CLI"
               run: npm install --global vercel@latest
             - name: "Pull vercel project settings"
-              run: vercel pull --yes
+              run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
             - name: "Build Project Artifacts"
               run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
             - name: "Deploy Project Artifacts to Vercel"
