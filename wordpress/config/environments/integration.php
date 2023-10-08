@@ -16,9 +16,5 @@ Config::define('DISALLOW_INDEXING', true);
 
 ini_set('display_errors', '1');
 
-Config::define('DISABLED_PLUGINS', [
-    'enable-cors/enable-cors.php',
-]);
-
 // Enable plugin and theme updates and installation from the admin
 Config::define('DISALLOW_FILE_MODS', false);
