@@ -33,6 +33,9 @@ on:
             OVPN_CONFIG_FILE:
                 required: true
                 type: string
+            GH_ENVIRONMENT:
+                required: true
+                type: string
         secrets:
             WP_DATABASE_PASSWORD:
                 required: true
@@ -62,6 +65,7 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        environment: ${{ inputs.GH_ENVIRONMENT }}
         defaults:
             run:
                 working-directory: ./wordpress
@@ -91,11 +95,12 @@ jobs:
                 DB_PREFIX="${{ inputs.WP_DB_TABLE_PREFIX }}"
                 EOF
             - name: Upload files to the server
-              uses: ./.github/workflows/upload-files-to-server.yml
+              uses: ./.github/actions/upload-files-to-server
               with:
                 remote-filesystem-destination: "public_html/${{ inputs.WORDPRESS_DESTINATION_DIR }}"
                 remote-username: "${{ inputs.REMOTE_USERNAME }}"
                 remote-address: "${{ inputs.REMOTE_ADDRESS }}"
                 ovpn-config-file: "${{ inputs.OVPN_CONFIG_FILE }}"
-              secrets:
-                inherit
+                ovpn-client-key: "${{ secrets.OVPN_CLIENT_KEY }}"
+                ovpn-tls-auth-key: "${{ secrets.OVPN_TLS_AUTH_KEY }}"
+                ssh-deploy-key: "${{ secrets.SSH_DEPLOY_KEY }}"
