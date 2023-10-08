@@ -51,22 +51,22 @@ jobs:
             - name: Populate wp env config file
               uses: SpicyPizza/create-envfile@v2.0
               with:
-                envkey_DB_NAME: "${{ vars.WP_DATABASE_NAME }}"
-                envkey_DB_USER: "${{ vars.WP_DATABASE_USER }}"
-                envkey_DB_PASSWORD: "${{ secrets.WP_DATABASE_PASSWORD }}"
-                envkey_DB_HOST: "${{ vars.WP_DATABASE_HOST }}"
-                envkey_WP_ENV: "${{ vars.WP_ENV }}"
-                envkey_WP_HOME: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-                envkey_WP_SITEURL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp"
-                envkey_AUTH_KEY: "${{ secrets.WP_AUTH_KEY }}"
-                envkey_SECURE_AUTH_KEY: "${{ secrets.WP_SECURE_AUTH_KEY }}"
-                envkey_LOGGED_IN_KEY: "${{ secrets.WP_LOGGED_IN_KEY }}"
-                envkey_NONCE_KEY: "${{ secrets.WP_NONCE_KEY }}"
-                envkey_AUTH_SALT: "${{ secrets.WP_AUTH_SALT }}"
-                envkey_SECURE_AUTH_SALT: "${{ secrets.WP_SECURE_AUTH_SALT }}"
-                envkey_LOGGED_IN_SALT: "${{ secrets.WP_LOGGED_IN_SALT }}"
-                envkey_NONCE_SALT: "${{ secrets.WP_NONCE_SALT }}"
-                envkey_DB_PREFIX: "${{ vars.WP_DB_TABLE_PREFIX }}"
+                envkey_DB_NAME: "\"${{ vars.WP_DATABASE_NAME }}\""
+                envkey_DB_USER: "\"${{ vars.WP_DATABASE_USER }}\""
+                envkey_DB_PASSWORD: "\"${{ secrets.WP_DATABASE_PASSWORD }}\""
+                envkey_DB_HOST: "\"${{ vars.WP_DATABASE_HOST }}\""
+                envkey_WP_ENV: "\"${{ vars.WP_ENV }}\""
+                envkey_WP_HOME: "\"http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}\""
+                envkey_WP_SITEURL: "\"http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp\""
+                envkey_AUTH_KEY: "\"${{ secrets.WP_AUTH_KEY }}\""
+                envkey_SECURE_AUTH_KEY: "\"${{ secrets.WP_SECURE_AUTH_KEY }}\""
+                envkey_LOGGED_IN_KEY: "\"${{ secrets.WP_LOGGED_IN_KEY }}\""
+                envkey_NONCE_KEY: "\"${{ secrets.WP_NONCE_KEY }}\""
+                envkey_AUTH_SALT: "\"${{ secrets.WP_AUTH_SALT }}\""
+                envkey_SECURE_AUTH_SALT: "\"${{ secrets.WP_SECURE_AUTH_SALT }}\""
+                envkey_LOGGED_IN_SALT: "\"${{ secrets.WP_LOGGED_IN_SALT }}\""
+                envkey_NONCE_SALT: "\"${{ secrets.WP_NONCE_SALT }}\""
+                envkey_DB_PREFIX: "\"${{ vars.WP_DB_TABLE_PREFIX }}\""
                 directory: ./wordpress
             - name: Create inner htaccess file
               run: |
@@ -91,7 +91,7 @@ jobs:
                 RewriteEngine On
                 RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}
                 RewriteCond %{REQUEST_URI} !web/
-                RewriteRule ^(.*)$ /web/$1 [L]
+                RewriteRule ^(.*)$ ./web/$1 [L]
                 </IfModule>
                 EOF
             - name: Upload files to the server
