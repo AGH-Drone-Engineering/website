@@ -1,0 +1,101 @@
+name: Deploy wordpress instalation to remote server via VPN
+
+on:
+    workflow_call:
+        inputs:
+            WP_DATABASE_NAME:
+                required: true
+                type: string
+            WP_DATABASE_USER:
+                required: true
+                type: string
+            WP_DATABASE_HOST:
+                required: true
+                type: string
+            WP_ENV:
+                required: true
+                type: string
+            WEBPAGE_DOMAIN:
+                required: true
+                type: string
+            WORDPRESS_DESTINATION_DIR:
+                required: true
+                type: string
+            REMOTE_USERNAME:
+                required: true
+                type: string
+            REMOTE_ADDRESS:
+                required: true
+                type: string
+            WP_DB_TABLE_PREFIX:
+                required: true
+                type: string
+            OVPN_CONFIG_FILE:
+                required: true
+                type: string
+        secrets:
+            WP_DATABASE_PASSWORD:
+                required: true
+            WP_AUTH_KEY:
+                required: true
+            WP_SECURE_AUTH_KEY:
+                required: true
+            WP_LOGGED_IN_KEY:
+                required: true
+            WP_NONCE_KEY:
+                required: true
+            WP_AUTH_SALT:
+                required: true
+            WP_SECURE_AUTH_SALT:
+                required: true
+            WP_LOGGED_IN_SALT:
+                required: true
+            WP_NONCE_SALT:
+                required: true
+            OVPN_CLIENT_KEY:
+                required: true
+            OVPN_TLS_AUTH_KEY:
+                required: true
+            SSH_DEPLOY_KEY:
+                required: true
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./wordpress
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Install wordpress dependencies
+              uses: php-actions/composer@v6
+            - name: Populate wp env config file
+              run: |
+                cat << EOF > .env
+                DB_NAME="${{ inputs.WP_DATABASE_NAME }}"
+                DB_USER="${{ inputs.WP_DATABASE_USER }}"
+                DB_PASSWORD="${{ secrets.WP_DATABASE_PASSWORD }}"
+                DB_HOST="${{ inputs.WP_DATABASE_HOST }}"
+                WP_ENV="${{ inputs.WP_ENV }}"
+                WP_HOME="${{ inputs.WEBPAGE_DOMAIN }}/${{ inputs.WORDPRESS_DESTINATION_DIR }}"
+                WP_SITEURL="${{ inputs.WEBPAGE_DOMAIN }}/${{ inputs.WORDPRESS_DESTINATION_DIR }}/wp"
+                AUTH_KEY: "${{ secrets.WP_AUTH_KEY }}"
+                SECURE_AUTH_KEY="${{ secrets.WP_SECURE_AUTH_KEY }}"
+                LOGGED_IN_KEY="${{ secrets.WP_LOGGED_IN_KEY }}"
+                NONCE_KEY="${{ secrets.WP_NONCE_KEY }}"
+                AUTH_SALT="${{ secrets.WP_AUTH_SALT }}"
+                SECURE_AUTH_SALT="${{ secrets.WP_SECURE_AUTH_SALT }}"
+                LOGGED_IN_SALT="${{ secrets.WP_LOGGED_IN_SALT }}"
+                NONCE_SALT="${{ secrets.WP_NONCE_SALT }}"
+                DB_PREFIX="${{ inputs.WP_DB_TABLE_PREFIX }}"
+                EOF
+            - name: Upload files to the server
+              uses: ./.github/workflows/upload-files-to-server.yml
+              with:
+                remote-filesystem-destination: "public_html/${{ inputs.WORDPRESS_DESTINATION_DIR }}"
+                remote-username: "${{ inputs.REMOTE_USERNAME }}"
+                remote-address: "${{ inputs.REMOTE_ADDRESS }}"
+                ovpn-config-file: "${{ inputs.OVPN_CONFIG_FILE }}"
+              secrets:
+                inherit

@@ -1,0 +1,47 @@
+name: Upload files to remote server via SSH through a VPN
+
+on:
+    workflow_call:
+        inputs:
+            remote-filesystem-destination:
+                type: string
+                required: true
+            remote-username:
+                type: string
+                required: true
+            remote-address:
+                type: string
+                required: true
+            ovpn-config-file:
+                type: string
+                required: true
+        secrets:
+            OVPN_CLIENT_KEY:
+                required: true
+            OVPN_TLS_AUTH_KEY:
+                required: true
+            SSH_DEPLOY_KEY:
+                required: true
+
+jobs:
+    upload:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Install OpenVPN
+              run: |
+                sudo apt update
+                sudo apt install -y openvpn openvpn-systemd-resolved
+            - name: Connect to AGH VPN
+              uses: "kota65535/github-openvpn-connect-action@v2"
+              with:
+                config_file: ${{ inputs.ovpn-config-file }}
+                client_key: ${{ secrets.OVPN_CLIENT_KEY }}
+                tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
+            - name: Upload files to the server
+              run: |
+                echo "${{ secrets.SSH_DEPLOY_KEY }}" > deploy_key
+                chmod 600 ./deploy_key
+                rsync -chav --delete \
+                  -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
+                  --exclude /deploy_key \
+                  ./ '${{ inputs.remote-username }}@${{ inputs.remote-address }}:${{ inputs.remote-filesystem-destination }}'
