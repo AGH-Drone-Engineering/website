@@ -44,7 +44,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.workdir }}
       run: |
-        echo "${{ inpust.ssh-deploy-key }}" > deploy_key
+        echo "${{ inputs.ssh-deploy-key }}" > deploy_key
         chmod 600 ./deploy_key
         rsync -chav --delete \
           -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
