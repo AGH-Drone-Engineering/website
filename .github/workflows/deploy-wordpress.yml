@@ -56,8 +56,8 @@ jobs:
                 envkey_DB_PASSWORD: "${{ secrets.WP_DATABASE_PASSWORD }}"
                 envkey_DB_HOST: "${{ vars.WP_DATABASE_HOST }}"
                 envkey_WP_ENV: "${{ vars.WP_ENV }}"
-                envkey_WP_HOME: "${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-                envkey_WP_SITEURL: "${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp"
+                envkey_WP_HOME: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                envkey_WP_SITEURL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp"
                 envkey_AUTH_KEY: "${{ secrets.WP_AUTH_KEY }}"
                 envkey_SECURE_AUTH_KEY: "${{ secrets.WP_SECURE_AUTH_KEY }}"
                 envkey_LOGGED_IN_KEY: "${{ secrets.WP_LOGGED_IN_KEY }}"
@@ -70,15 +70,15 @@ jobs:
                 directory: ./wordpress
             - name: Create htaccess file
               run: |
-                cat << EOF > ./web/.htaccess
+                cat << EOF > ./.htaccess
                 # BEGIN WordPress
                 <IfModule mod_rewrite.c>
                 RewriteEngine On
-                RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}/
+                RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}/web
                 RewriteRule ^index\.php$ - [L]
                 RewriteCond %{REQUEST_FILENAME} !-f
                 RewriteCond %{REQUEST_FILENAME} !-d
-                RewriteRule . /${{ vars.WORDPRESS_DESTINATION_DIR }}/index.php [L]
+                RewriteRule . /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/index.php [L]
                 </IfModule>
 
                 # END WordPress
