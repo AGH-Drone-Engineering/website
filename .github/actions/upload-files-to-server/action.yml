@@ -22,6 +22,9 @@ inputs:
   ssh-deploy-key:
     description: SHH private key used to login to the remote server
     required: true
+  workdir:
+    description: Set the working directory for the action
+    required: true
 
 runs:
   using: composite
@@ -39,8 +42,9 @@ runs:
         tls_auth_key: ${{ inputs.ovpn-tls-auth-key }}
     - name: Upload files to the server
       shell: bash
+      working-directory: ${{ inputs.workdir }}
       run: |
-        echo "${{ secrets.SSH_DEPLOY_KEY }}" > deploy_key
+        echo "${{ inpust.ssh-deploy-key }}" > deploy_key
         chmod 600 ./deploy_key
         rsync -chav --delete \
           -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
