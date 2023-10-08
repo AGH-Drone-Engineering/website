@@ -108,3 +108,4 @@ jobs:
                 ovpn-client-key: "${{ secrets.OVPN_CLIENT_KEY }}"
                 ovpn-tls-auth-key: "${{ secrets.OVPN_TLS_AUTH_KEY }}"
                 ssh-deploy-key: "${{ secrets.SSH_DEPLOY_KEY }}"
+                workdir: './wordpress'
