@@ -11,16 +11,6 @@ jobs:
         uses: ./.github/workflows/deploy-wordpress.yml
         secrets: inherit
         with:
-            WP_DATABASE_NAME: "${{ vars.WP_DATABASE_NAME }}"
-            WP_DATABASE_USER: "${{ vars.WP_DATABASE_USER }}"
-            WP_DATABASE_HOST: "${{ vars.WP_DATABASE_HOST }}"
-            WP_ENV: "${{ vars.WP_ENV }}"
-            WEBPAGE_DOMAIN: "${{ vars.WEBPAGE_DOMAIN }}"
-            WORDPRESS_DESTINATION_DIR: "${{ vars.WORDPRESS_DESTINATION_DIR }}"
-            REMOTE_USERNAME: "${{ vars.REMOTE_USERNAME }}"
-            REMOTE_ADDRESS: "${{ vars.REMOTE_ADDRESS }}"
-            WP_DB_TABLE_PREFIX: "${{ vars.WP_DB_TABLE_PREFIX }}"
-            OVPN_CONFIG_FILE: "${{ vars.OVPN_CONFIG_FILE }}"
             GH_ENVIRONMENT: Integration
 
     deploy-frontend:
