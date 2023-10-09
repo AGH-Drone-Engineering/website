@@ -68,10 +68,18 @@ jobs:
                 envkey_NONCE_SALT: "\"${{ secrets.WP_NONCE_SALT }}\""
                 envkey_DB_PREFIX: "\"${{ vars.WP_DB_TABLE_PREFIX }}\""
                 directory: ./wordpress
+            - name: Create outer htaccess file
+              run: |
+                cat << EOF > .htaccess
+                <IfModule mod_rewrite.c>
+                RewriteEngine on
+                RewriteCond %{REQUEST_URI} !${{ vars.WORDPRESS_DESTINATION_DIR }}/web/
+                RewriteRule ^(.*)$ /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/$1 [L]
+                </IfModule>
+                EOF
             - name: Create inner htaccess file
               run: |
                 cat << EOF > web/.htaccess
-                # BEGIN WordPress
                 <IfModule mod_rewrite.c>
                 RewriteEngine On
                 RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}/web
@@ -79,19 +87,6 @@ jobs:
                 RewriteCond %{REQUEST_FILENAME} !-f
                 RewriteCond %{REQUEST_FILENAME} !-d
                 RewriteRule . /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/index.php [L]
-                </IfModule>
-
-                # END WordPress
-
-                EOF
-            - name: Create outer htaccess file
-              run: |
-                cat << EOF > .htaccess
-                <IfModule mod_rewrite.c>
-                RewriteEngine On
-                RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}
-                RewriteCond %{REQUEST_URI} !web/
-                RewriteRule ^(.*)$ ./web/$1 [L]
                 </IfModule>
                 EOF
             - name: Upload files to the server
