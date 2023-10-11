@@ -5,8 +5,8 @@ import { GetEditorBlocksByUriQuery } from '~/models/graphql.generated';
 export const getEditorBlocksByUri: TypedDocumentNode<GetEditorBlocksByUriQuery> = gql`
     ${coreParagraphFragment}
 
-    query GetEditorBlocksByUri($uri: ID!) {
-        contentNode(id: $uri, idType: URI) {
+    query GetEditorBlocksByUri($uri: String!) {
+        nodeByUri(uri: $uri) {
             ... on NodeWithEditorBlocks {
                 editorBlocks(flat: true) {
                     __typename
@@ -21,13 +21,11 @@ export const getEditorBlocksByUri: TypedDocumentNode<GetEditorBlocksByUriQuery> 
     }
 `;
 
-type EditorBlock = Defined<
+export type EditorBlock = Defined<
     Defined<
-        Exclude<
-            Defined<GetEditorBlocksByUriQuery['contentNode']>,
-            { __typename: 'MediaItem' }
+        Extract<
+            Defined<GetEditorBlocksByUriQuery['nodeByUri']>,
+            { __typename: 'Page' | 'Post' }
         >['editorBlocks']
     >[number]
 >;
-
-export type EditorBlockTree = EditorBlock & { innerBlocks?: EditorBlock[] };
