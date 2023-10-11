@@ -2,16 +2,15 @@ name: Build and deploy frontend poject to Vercel
 
 on:
     workflow_call:
-    repository_dispatch:
-        types:
-            - wp-integration-content-modified
+    workflow_dispatch:
 
 concurrency:
     group: deploy-frontend-vercel
     cancel-in-progress: true
 
 jobs:
-    frontend:
+    build-and-deploy:
+        name: Build and deploy frontend to Vercel
         runs-on: ubuntu-latest
         environment: Integration
         env:
