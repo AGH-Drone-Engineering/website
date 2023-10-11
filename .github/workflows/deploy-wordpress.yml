@@ -67,6 +67,8 @@ jobs:
                 envkey_LOGGED_IN_SALT: "\"${{ secrets.WP_LOGGED_IN_SALT }}\""
                 envkey_NONCE_SALT: "\"${{ secrets.WP_NONCE_SALT }}\""
                 envkey_DB_PREFIX: "\"${{ vars.WP_DB_TABLE_PREFIX }}\""
+                envkey_GH_DEPLOYMENT_TOKEN: "\"${{ secrets.GH_DEPLOYMENT_TOKEN }}\""
+                envkey_GH_DEPLOYMENT_REF: "\"${{ github.ref_name }}\""
                 directory: ./wordpress
             - name: Create outer htaccess file
               run: |
