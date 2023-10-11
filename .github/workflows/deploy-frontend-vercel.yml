@@ -4,7 +4,7 @@ on:
     workflow_call:
     repository_dispatch:
         types:
-            - wp-content-modified
+            - wp-integration-content-modified
 
 concurrency:
     group: deploy-frontend-vercel
