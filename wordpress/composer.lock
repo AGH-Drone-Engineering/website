@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8955e5dc6d89a7cc66bc490af95b777",
+    "content-hash": "95ccd236bcf2bc4c471931ca87366d1f",
     "packages": [
         {
             "name": "ashhitch/wp-graphql-yoast-seo",
@@ -1563,6 +1563,24 @@
             "homepage": "https://wordpress.org/plugins/wp-graphql/"
         },
         {
+            "name": "wpackagist-plugin/wp-jamstack-deployments",
+            "version": "1.1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-jamstack-deployments/",
+                "reference": "tags/1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-jamstack-deployments.1.1.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-jamstack-deployments/"
+        },
+        {
             "name": "wpengine/wp-graphql-content-blocks",
             "version": "v1.2.0",
             "dist": {
@@ -2262,7 +2280,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0"
+        "php": ">=7.4.33"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
