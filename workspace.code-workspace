@@ -72,6 +72,9 @@
         "powershell.cwd": "d:\\Projekty\\web\\AGHDE-website",
         "files.associations": {
             "*.env*": "ini"
+        },
+        "[php]": {
+            "editor.defaultFormatter": "DEVSENSE.phptools-vscode"
         }
     }
 }

@@ -1,4 +1,7 @@
-import { EditorBlockTree } from '~/api/queries/getEditorBlocks';
+import { EditorBlock } from '~/api/queries/getEditorBlocks';
+import { DataWithChildren } from '~/utils/flatListToHierarchical';
+
+export type EditorBlockTree = DataWithChildren<EditorBlock>;
 
 export interface BlockComponentProps<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

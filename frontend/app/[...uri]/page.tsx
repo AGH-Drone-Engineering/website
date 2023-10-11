@@ -33,9 +33,11 @@ export const generateStaticParams = async (): Promise<Params[]> => {
     });
 
     const result =
-        data.contentNodes?.edges.map<Params>(({ node }) => ({
-            uri: node.uri?.split('/').filter(str => !!str) ?? [],
-        })) ?? [];
+        data.contentNodes?.edges
+            .map<Params>(({ node }) => ({
+                uri: node.uri?.split('/').filter(str => !!str) ?? [],
+            }))
+            .filter(({ uri }) => uri.length > 0) ?? [];
 
     return result;
 };
@@ -45,7 +47,7 @@ export default async function NodeByUriPagePage({
 }: {
     params: Params;
 }) {
-    const uriString = uri.join('/');
+    const uriString = '/' + uri.join('/');
 
     const { data } = await getClient().query({
         query: seedQuery,

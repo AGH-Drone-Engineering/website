@@ -1,11 +1,11 @@
-import { flatListToHierarchical } from '@faustwp/core';
 import invariant from 'tiny-invariant';
 import { getClient } from '~/api/apolloClient';
 import {
-    EditorBlockTree,
+    EditorBlock,
     getEditorBlocksByUri,
 } from '~/api/queries/getEditorBlocks';
 import { WordPressBlockViewer } from '~/components/WordPressBlockViewer';
+import { flatListToHierarchical } from '~/utils/flatListToHierarchical';
 import { isTruthy } from '~/utils/isTruthy';
 import { WordpressTemplate } from '../types';
 
@@ -15,16 +15,11 @@ export const Page: WordpressTemplate = async ({ uri }) => {
         variables: { uri },
     });
 
-    invariant(data.contentNode?.__typename !== 'MediaItem');
+    invariant(data.nodeByUri?.__typename === 'Page');
 
-    const hierarchical = flatListToHierarchical(
-        data.contentNode?.editorBlocks?.filter(isTruthy) ?? [],
-        {
-            childrenKey: 'innerBlocks',
-            idKey: 'clientId',
-            parentKey: 'parentClientId',
-        },
-    ) as EditorBlockTree[];
+    const hierarchical = flatListToHierarchical<EditorBlock>(
+        data.nodeByUri?.editorBlocks?.filter(isTruthy) ?? [],
+    );
 
     return <WordPressBlockViewer blocks={hierarchical} />;
 };
