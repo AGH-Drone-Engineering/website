@@ -1,0 +1,102 @@
+name: Deploy wordpress instalation to remote server via VPN
+
+on:
+    workflow_call:
+        inputs:
+            GH_ENVIRONMENT:
+                required: true
+                type: string
+        secrets:
+            WP_DATABASE_PASSWORD:
+                required: true
+            WP_AUTH_KEY:
+                required: true
+            WP_SECURE_AUTH_KEY:
+                required: true
+            WP_LOGGED_IN_KEY:
+                required: true
+            WP_NONCE_KEY:
+                required: true
+            WP_AUTH_SALT:
+                required: true
+            WP_SECURE_AUTH_SALT:
+                required: true
+            WP_LOGGED_IN_SALT:
+                required: true
+            WP_NONCE_SALT:
+                required: true
+            OVPN_CLIENT_KEY:
+                required: true
+            OVPN_TLS_AUTH_KEY:
+                required: true
+            SSH_DEPLOY_KEY:
+                required: true
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: ${{ inputs.GH_ENVIRONMENT }}
+        defaults:
+            run:
+                working-directory: ./wordpress
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Install wordpress dependencies
+              uses: php-actions/composer@v6
+              env:
+                COMPOSER: "composer.json"
+              with:
+                working_dir: ./wordpress
+            - name: Populate wp env config file
+              uses: SpicyPizza/create-envfile@v2.0
+              with:
+                envkey_DB_NAME: "\"${{ vars.WP_DATABASE_NAME }}\""
+                envkey_DB_USER: "\"${{ vars.WP_DATABASE_USER }}\""
+                envkey_DB_PASSWORD: "\"${{ secrets.WP_DATABASE_PASSWORD }}\""
+                envkey_DB_HOST: "\"${{ vars.WP_DATABASE_HOST }}\""
+                envkey_WP_ENV: "\"${{ vars.WP_ENV }}\""
+                envkey_WP_HOME: "\"http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}\""
+                envkey_WP_SITEURL: "\"http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}/wp\""
+                envkey_AUTH_KEY: "\"${{ secrets.WP_AUTH_KEY }}\""
+                envkey_SECURE_AUTH_KEY: "\"${{ secrets.WP_SECURE_AUTH_KEY }}\""
+                envkey_LOGGED_IN_KEY: "\"${{ secrets.WP_LOGGED_IN_KEY }}\""
+                envkey_NONCE_KEY: "\"${{ secrets.WP_NONCE_KEY }}\""
+                envkey_AUTH_SALT: "\"${{ secrets.WP_AUTH_SALT }}\""
+                envkey_SECURE_AUTH_SALT: "\"${{ secrets.WP_SECURE_AUTH_SALT }}\""
+                envkey_LOGGED_IN_SALT: "\"${{ secrets.WP_LOGGED_IN_SALT }}\""
+                envkey_NONCE_SALT: "\"${{ secrets.WP_NONCE_SALT }}\""
+                envkey_DB_PREFIX: "\"${{ vars.WP_DB_TABLE_PREFIX }}\""
+                directory: ./wordpress
+            - name: Create outer htaccess file
+              run: |
+                cat << EOF > .htaccess
+                <IfModule mod_rewrite.c>
+                RewriteEngine on
+                RewriteCond %{REQUEST_URI} !${{ vars.WORDPRESS_DESTINATION_DIR }}/web/
+                RewriteRule ^(.*)$ /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/\$1 [L]
+                </IfModule>
+                EOF
+            - name: Create inner htaccess file
+              run: |
+                cat << EOF > web/.htaccess
+                <IfModule mod_rewrite.c>
+                RewriteEngine On
+                RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}/web
+                RewriteRule ^index\.php$ - [L]
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteCond %{REQUEST_FILENAME} !-d
+                RewriteRule . /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/index.php [L]
+                </IfModule>
+                EOF
+            - name: Upload files to the server
+              uses: ./.github/actions/upload-files-to-server
+              with:
+                remote-filesystem-destination: "public_html/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                remote-username: "${{ vars.REMOTE_USERNAME }}"
+                remote-address: "${{ vars.REMOTE_ADDRESS }}"
+                ovpn-config-file: "${{ vars.OVPN_CONFIG_FILE }}"
+                ovpn-client-key: "${{ secrets.OVPN_CLIENT_KEY }}"
+                ovpn-tls-auth-key: "${{ secrets.OVPN_TLS_AUTH_KEY }}"
+                ssh-deploy-key: "${{ secrets.SSH_DEPLOY_KEY }}"
+                workdir: './wordpress'

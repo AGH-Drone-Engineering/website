@@ -1,0 +1,22 @@
+name: Build and deploy integration
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - dev
+
+jobs:
+    wordpress:
+        uses: ./.github/workflows/deploy-wordpress.yml
+        secrets: inherit
+        with:
+            GH_ENVIRONMENT: Integration
+
+    frontend:
+        uses: ./.github/workflows/deploy-frontend-vercel.yml
+        needs:
+            wordpress
+        secrets: inherit
+
+
