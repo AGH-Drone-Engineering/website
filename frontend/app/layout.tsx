@@ -3,8 +3,6 @@ import { ColorSchemeScript } from '@mantine/core';
 import { Providers } from '~/context/Providers';
 import '@mantine/core/styles.css';
 
-export const dynamic = 'error';
-
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
