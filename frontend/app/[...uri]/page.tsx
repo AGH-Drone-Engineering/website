@@ -27,7 +27,7 @@ export async function generateMetadata({
     };
 }
 
-export const generateStaticParams = async (): Promise<Params[]> => {
+export async function generateStaticParams(): Promise<Params[]> {
     const { data } = await getClient().query({
         query: allNodeUrisQuery,
     });
@@ -40,7 +40,7 @@ export const generateStaticParams = async (): Promise<Params[]> => {
             .filter(({ uri }) => uri.length > 0) ?? [];
 
     return result;
-};
+}
 
 export default async function NodeByUriPagePage({
     params: { uri },
