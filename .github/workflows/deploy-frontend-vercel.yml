@@ -13,12 +13,19 @@ jobs:
         name: Build and deploy frontend to Vercel
         runs-on: ubuntu-latest
         environment: Integration
+        defaults:
+            run:
+                working-directory: ./frontend
         env:
             VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
             VERCEL_PROJECT_ID: "${{ secrets.VERCEL_PROJECT_ID }}"
             NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
         steps:
             - uses: actions/checkout@v2
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 20
+                cache-dependency-path: ./frontend/package-lock.json
             - name: "Install Vercel CLI"
               run: npm install --global vercel@latest
             - name: "Pull vercel project settings"
