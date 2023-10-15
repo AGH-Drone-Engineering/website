@@ -28,9 +28,13 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams(): Promise<Params[]> {
+    console.log({ env: process.env.NEXT_PUBLIC_WORDPRESS_URL });
+
     const { data } = await getClient().query({
         query: allNodeUrisQuery,
     });
+
+    console.log({ data });
 
     const result =
         data.contentNodes?.edges
