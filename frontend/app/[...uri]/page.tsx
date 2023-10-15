@@ -28,13 +28,9 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams(): Promise<Params[]> {
-    console.log({ env: process.env.NEXT_PUBLIC_WORDPRESS_URL });
-
     const { data } = await getClient().query({
         query: allNodeUrisQuery,
     });
-
-    console.log({ data });
 
     const result =
         data.contentNodes?.edges
@@ -42,6 +38,8 @@ export async function generateStaticParams(): Promise<Params[]> {
                 uri: node.uri?.split('/').filter(str => !!str) ?? [],
             }))
             .filter(({ uri }) => uri.length > 0) ?? [];
+
+    console.log(JSON.stringify(result, null, 4));
 
     return result;
 }
