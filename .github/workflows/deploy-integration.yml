@@ -13,9 +13,11 @@ jobs:
             GH_ENVIRONMENT: Integration
 
     frontend:
-        uses: ./.github/workflows/deploy-frontend-vercel.yml
+        uses: ./.github/workflows/deploy-frontend.yml
         needs:
             wordpress
         secrets: inherit
+        with:
+            GH_ENVIRONMENT: Integration
 
 
