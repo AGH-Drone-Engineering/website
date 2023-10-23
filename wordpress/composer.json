@@ -72,7 +72,6 @@
         "wpackagist-plugin/faustwp": "^1.0",
         "wpackagist-plugin/wordpress-seo": "^21.3",
         "ashhitch/wp-graphql-yoast-seo": "^4.22",
-        "wpackagist-plugin/enable-cors": "^1.1",
         "wpackagist-plugin/wp-jamstack-deployments": "^1.1"
     },
     "require-dev": {
