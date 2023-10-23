@@ -1,16 +1,16 @@
-name: Build and deploy integration
+name: Build and deploy production
 
 on:
     push:
         branches:
-            - dev
+            - master
 
 jobs:
     wordpress:
         uses: ./.github/workflows/deploy-wordpress.yml
         secrets: inherit
         with:
-            GH_ENVIRONMENT: Integration
+            GH_ENVIRONMENT: Production
 
     frontend:
         uses: ./.github/workflows/deploy-frontend.yml
@@ -18,6 +18,6 @@ jobs:
             wordpress
         secrets: inherit
         with:
-            GH_ENVIRONMENT: Integration
+            GH_ENVIRONMENT: Production
 
 
