@@ -28,6 +28,7 @@ jobs:
                 working-directory: ./frontend
         env:
             NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+            NEXT_BASE_PATH: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WEBPAGE_DESTINATION_DIR }}"
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v3
