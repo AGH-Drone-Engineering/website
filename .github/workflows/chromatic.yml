@@ -23,9 +23,9 @@ jobs:
       - name: Publish deployment summary
         run: |
             cat << 'EOF' >> $GITHUB_STEP_SUMMARY
-            \| Results \|  \|
-            \| \-\-\- \| \-\-\- \|
-            \| Build Results \| ${{ steps.chromatic.outputs.buildUrl }} \|
-            \| Storybook Preview \| ${{ steps.chromatic.outputs.storybookUrl }} \|
-            \| Component Count \| ${{ steps.chromatic.outputs.componentCount }} \|
+            | Results |  |
+            | --- | --- |
+            | Build Results | ${{ steps.chromatic.outputs.buildUrl }} |
+            | Storybook Preview | ${{ steps.chromatic.outputs.storybookUrl }} |
+            | Component Count | ${{ steps.chromatic.outputs.componentCount }} |
             EOF
