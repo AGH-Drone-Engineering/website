@@ -1,0 +1,15 @@
+name: Setup frontend project
+description: Initalize frontend project for other command to be run
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache-dependency-path: ./frontend/package-lock.json
+        cache: 'npm'
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
