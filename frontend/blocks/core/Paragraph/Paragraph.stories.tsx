@@ -28,7 +28,7 @@ type Story = StoryObj<StoryArgs>;
 
 export const ParagraphBlock: Story = {
     args: {
-        text: 'Lorem ipsum cośtam coś',
+        text: 'Lorem ipsum cośtam coś test',
     },
     parameters: {
         layout: 'centered',
