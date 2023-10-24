@@ -45,7 +45,7 @@ jobs:
                 working-directory: ./wordpress
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
             - name: Install wordpress dependencies
               uses: php-actions/composer@v6
               env:
