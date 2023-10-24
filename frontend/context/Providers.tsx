@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { MantineProvider } from '@mantine/core';
-import { theme } from '~/styles/theme';
+// import { theme } from '~/styles/theme';
 import { BlockProvider } from './blocksContext';
 import { TemplateProvider } from './templatesContext';
 
