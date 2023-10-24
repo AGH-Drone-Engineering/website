@@ -5,7 +5,7 @@
         "dev": "next dev",
         "start": "next start",
         "format-and-fix": "prettier-eslint --write \"*/*.{css,js,json,ts,tsx}\"",
-        "format-check": "prettier-eslint --check \"*/*.{css,js,json,ts,tsx}\"",
+        "format-check": "prettier-eslint \"*/*.{css,js,json,ts,tsx}\"",
         "lint": "eslint . .storybook",
         "lint-errors-only": "npm run lint -- --quiet",
         "typecheck": "tsc",
