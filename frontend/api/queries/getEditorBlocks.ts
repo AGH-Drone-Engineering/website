@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { coreParagraphFragment } from '~/blocks/core/Paragraph';
+import { coreParagraphFragment } from '~/blocks/core/Paragraph/Paragraph';
 import { GetEditorBlocksByUriQuery } from '~/models/graphql.generated';
 
 export const getEditorBlocksByUri: TypedDocumentNode<GetEditorBlocksByUriQuery> = gql`

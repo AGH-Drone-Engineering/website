@@ -32,6 +32,10 @@ on:
             SSH_DEPLOY_KEY:
                 required: true
 
+concurrency:
+    group: deploy-wordpress=${{ inputs.GH_ENVIRONMENT }}
+    cancel-in-progress: false
+
 jobs:
     deploy:
         runs-on: ubuntu-latest

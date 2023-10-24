@@ -1,0 +1,55 @@
+name: Pull request checks
+
+on:
+    pull_request:
+        types:
+            - opened
+            - reopened
+        branches:
+            dev
+
+jobs:
+    formatting:
+        name: Check formatting
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            - uses: actions/checkout@v2
+            - uses: ./.github/actions/setup-frontend-deps
+            - name: Run formatting check
+              run: npm run format-check
+    typecheck:
+        name: Check formatting
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            - uses: actions/checkout@v2
+            - uses: ./.github/actions/setup-frontend-deps
+            - name: Run typecheck
+              run: npm run typecheck
+    lint:
+        name: Check formatting
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            - uses: actions/checkout@v2
+            - uses: ./.github/actions/setup-frontend-deps
+            - name: Run lint
+              run: npm run lint-errors-only
+    build:
+        name: Check if frontend app is building
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            - uses: actions/checkout@v2
+            - uses: ./.github/actions/setup-frontend-deps
+            - name: Build
+              run: npm run build
