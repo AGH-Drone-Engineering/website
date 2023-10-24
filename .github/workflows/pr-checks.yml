@@ -10,46 +10,63 @@ on:
 
 jobs:
     formatting:
-        name: Check formatting
+        name: Formatting
+        environment: Integration
         runs-on: ubuntu-latest
         defaults:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
-            - uses: ./.github/actions/setup-frontend-deps
+            - uses: actions/checkout@v4
+            - name: Setup app dependencies and code generation
+              uses: ./.github/actions/setup-frontend-deps
+              with:
+                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
             - name: Run formatting check
               run: npm run format-check
     typecheck:
-        name: Check formatting
+        name: Typecheck
         runs-on: ubuntu-latest
+        environment: Integration
         defaults:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
-            - uses: ./.github/actions/setup-frontend-deps
+            - uses: actions/checkout@v4
+            - name: Setup app dependencies and code generation
+              uses: ./.github/actions/setup-frontend-deps
+              with:
+                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
             - name: Run typecheck
               run: npm run typecheck
     lint:
-        name: Check formatting
+        name: Eslint
         runs-on: ubuntu-latest
+        environment: Integration
         defaults:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
-            - uses: ./.github/actions/setup-frontend-deps
+            - uses: actions/checkout@v4
+            - name: Setup app dependencies and code generation
+              uses: ./.github/actions/setup-frontend-deps
+              with:
+                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
             - name: Run lint
               run: npm run lint-errors-only
     build:
-        name: Check if frontend app is building
+        name: App build - integration
         runs-on: ubuntu-latest
+        environment: Integration
+        env:
+            NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+            NEXT_BASE_PATH: "/${{ vars.WEBPAGE_DESTINATION_DIR }}"
         defaults:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
-            - uses: ./.github/actions/setup-frontend-deps
+            - uses: actions/checkout@v4
+            - name: Setup app dependencies and code generation
+              uses: ./.github/actions/setup-frontend-deps
             - name: Build
               run: npm run build
