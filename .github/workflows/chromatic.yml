@@ -12,7 +12,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
             fetch-depth: 0
-      - uses: ./.github/actions/setup-frontend-deps
+      - name: Setup node and dependencies
+        uses: ./.github/actions/setup-frontend-deps
       - name: Publish frontend to Chromatic
         id: chromatic
         uses: chromaui/action@v1
@@ -23,7 +24,7 @@ jobs:
         run:
             cat << EOF >> $GITHUB_STEP_SUMMARY
             \| Results \|  \|
-            \| --- \| --- \|
+            \| \-\-\- \| \-\-\- \|
             \| Build Results \| ${{ steps.chromatic.outputs.buildUrl }} \|
             \| Storybook Preview \| ${{ steps.chromatic.outputs.storybookUrl }} \|
             \| Component Count \| ${{ steps.chromatic.outputs.componentCount }} \|
