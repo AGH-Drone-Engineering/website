@@ -1,4 +1,3 @@
-import React from 'react';
 import { WordPressBlockViewer } from '~/components/WordPressBlockViewer';
 import { BlockComponent } from './types';
 
