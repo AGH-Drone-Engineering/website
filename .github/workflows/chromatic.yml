@@ -21,7 +21,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: frontend
       - name: Publish deployment summary
-        run:
+        run: |
             cat << 'EOF' >> $GITHUB_STEP_SUMMARY
             \| Results \|  \|
             \| \-\-\- \| \-\-\- \|
