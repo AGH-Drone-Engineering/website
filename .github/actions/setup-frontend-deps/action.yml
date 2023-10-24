@@ -3,7 +3,6 @@ description: Initalize frontend project for other command to be run
 
 inputs:
   wordpress-url:
-    required: true
     description: An URL where a wordpress installation can be found
 
 runs:
@@ -18,7 +17,8 @@ runs:
       shell: bash
       run: npm ci
       working-directory: frontend
-    - name: Generate missing files
+    - if: ${{ Boolean(inputs.wordpress-url) }}
+      name: Generate missing files
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "${{ inputs.wordpress-url }}"
       shell: bash
