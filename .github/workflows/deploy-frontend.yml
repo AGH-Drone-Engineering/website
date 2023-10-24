@@ -30,7 +30,7 @@ jobs:
             NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
             NEXT_BASE_PATH: "/${{ vars.WEBPAGE_DESTINATION_DIR }}"
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - uses: actions/setup-node@v3
               with:
                 node-version: 20

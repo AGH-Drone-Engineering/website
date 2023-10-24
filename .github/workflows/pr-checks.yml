@@ -17,7 +17,7 @@ jobs:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
@@ -32,7 +32,7 @@ jobs:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
@@ -47,7 +47,7 @@ jobs:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
@@ -65,7 +65,7 @@ jobs:
             run:
                 working-directory: ./frontend
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
             - name: Build
