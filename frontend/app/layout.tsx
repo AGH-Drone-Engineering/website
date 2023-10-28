@@ -9,7 +9,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <head>
                 <ColorSchemeScript />
             </head>
-            <body>
+            <body suppressHydrationWarning>
                 <Providers>{children}</Providers>
             </body>
         </html>

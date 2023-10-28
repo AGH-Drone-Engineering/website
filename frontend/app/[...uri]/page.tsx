@@ -4,7 +4,7 @@ import { getClient } from '~/api/apolloClient';
 import { getNodeAndWebsiteNameQuery } from '~/api/queries/getTitle';
 import { seedQuery } from '~/api/queries/seedQuery';
 import { WordpressTemplateViewer } from '~/components/WordpressTemplateViewer';
-import { allNodeUrisQuery } from '../page.queries';
+import { allNodeUrisQuery } from './page.queries';
 
 interface Params {
     uri: string[];

@@ -21,7 +21,6 @@
     "dependencies": {
         "@apollo/client": "^3.8.4",
         "@apollo/experimental-nextjs-app-support": "^0.4.3",
-        "@emotion/styled": "^11.11.0",
         "@mantine/core": "^7.1.2",
         "@mantine/hooks": "^7.1.2",
         "graphql": "^16.8.1",
