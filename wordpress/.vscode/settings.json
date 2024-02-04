@@ -1,4 +1,5 @@
 {
-    "editor.codeActionsOnSave": {}
-
+    "files.exclude": {
+        "web/app/plugins/custom-blocks": true,
+    }
 }
