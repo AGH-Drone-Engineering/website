@@ -4,6 +4,8 @@ description: Initalize frontend project for other command to be run
 inputs:
   generate-files:
     description: If this param is present, the action will generate the files necessary for frontend
+  skip-server:
+    description: If this param is present, the action will skip setting up a dedicated wordpress server and generating files from it
   working-directory:
     default: ./frontend
     description: A directory containing the target app
@@ -20,8 +22,11 @@ runs:
       shell: bash
       run: npm ci
       working-directory: ${{ inputs.working-directory }}
-    - uses: isbang/compose-action@v1.5.1
+    - if: ${{ !!inputs.skip-server }}
+      uses: isbang/compose-action@v1.5.1
       name: Start a server instance to use in the pipeline
+      with:
+        compose-file: ./docker-compose.yaml
       env:
         DB_ROOT_PASSWORD: "3974a5af-317d-5d23-ac41-967aa4795683"
         DB_NAME: "WP_DB"
@@ -36,7 +41,7 @@ runs:
         WP_LOGGED_IN_SALT: "6AI&+(s<p7{NPv2}U{9wXg8u>CY,d,-v^TAJ[3/K=D+Hm*AP.3uB{{Uaqt1nlr^G"
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
 
-    - if: ${{ !!inputs.generate-files }}
+    - if: ${{ !!inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8080"
