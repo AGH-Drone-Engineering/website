@@ -5,7 +5,7 @@ inputs:
   wordpress-url:
     description: An URL where a wordpress installation can be found
   working-directory:
-    default: frontend
+    default: ./frontend
     description: A directory containing the target app
 
 runs:
