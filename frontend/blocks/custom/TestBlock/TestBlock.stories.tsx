@@ -2,11 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TestBlock as TestBlockComponent } from './TestBlock';
 
 interface StoryArgs {
-
+    link: string,
+    number: number;
+    numberRange: number;
+    toggle: boolean;
+    range: number;
+    color: string;
 }
 
 const meta: Meta<StoryArgs> = {
-    component: ({ }) => (
+    component: ({ link, color, number, numberRange, range, toggle }) => (
         <TestBlockComponent
             block={{
                 __typename: 'CustomTest',
@@ -16,12 +21,12 @@ const meta: Meta<StoryArgs> = {
                 renderedHtml: null,
                 attributes: {
                     __typename: 'CustomTestAttributes',
-                    linkTest: '',
-                    numberTest: 3,
-                    numberWithRangeTest: 23,
-                    rangeTest: 21,
-                    toggleTest: true,
-                    test: '#696969'
+                    linkTest: link,
+                    numberTest: number,
+                    numberWithRangeTest: numberRange,
+                    rangeTest: range,
+                    toggleTest: toggle,
+                    test: color,
                 },
             }}
         />
@@ -33,6 +38,11 @@ type Story = StoryObj<StoryArgs>;
 
 export const TestBlock: Story = {
     args: {
-
+        color: '#696969',
+        link: '/',
+        number: 2137,
+        numberRange: 69,
+        range: 420,
+        toggle: false,
     },
 };
