@@ -28,7 +28,6 @@ runs:
       with:
         compose-file: ./docker-compose.yaml
       env:
-        TEST: test
         DB_ROOT_PASSWORD: "3974a5af-317d-5d23-ac41-967aa4795683"
         DB_NAME: "WP_DB"
         DB_USER: "Wordpress"
@@ -41,6 +40,11 @@ runs:
         WP_SECURE_AUTH_SALT: "nSBdAU0c}#j72;[@xc^X2Yvd^l_Aw:-_bWyvcolIt7.T9=xdNC5{HP-y!H[q=B[0"
         WP_LOGGED_IN_SALT: "6AI&+(s<p7{NPv2}U{9wXg8u>CY,d,-v^TAJ[3/K=D+Hm*AP.3uB{{Uaqt1nlr^G"
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
+
+    - name: Test response
+      shell: bash
+      run: |
+        curl http://localhost:8080/index.php?graphql
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
