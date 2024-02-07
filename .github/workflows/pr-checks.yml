@@ -83,7 +83,7 @@ jobs:
             - name: Setup app dependencies
               uses: ./.github/actions/setup-frontend-deps
               with:
-                working-directory: .wordpress/web/app/plugins/custom-blocks
+                working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Run formatting check
               run: npm run format-check
 
@@ -99,7 +99,7 @@ jobs:
             - name: Setup app dependencies
               uses: ./.github/actions/setup-frontend-deps
               with:
-                working-directory: .wordpress/web/app/plugins/custom-blocks
+                working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Run typecheck
               run: npm run typecheck
 
@@ -115,7 +115,7 @@ jobs:
             - name: Setup app dependencies
               uses: ./.github/actions/setup-frontend-deps
               with:
-                working-directory: .wordpress/web/app/plugins/custom-blocks
+                working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Run lint
               run: npm run lint-errors-only
 
@@ -131,6 +131,6 @@ jobs:
             - name: Setup app dependencies
               uses: ./.github/actions/setup-frontend-deps
               with:
-                working-directory: .wordpress/web/app/plugins/custom-blocks
+                working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Build
               run: npm run build
