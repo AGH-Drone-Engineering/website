@@ -45,7 +45,7 @@ runs:
     - name: Show logs
       shell: bash
       run: >
-        docker exec -t website-db-1 mysqladmin extended-status -h localhost --user root --password "3974a5af-317d-5d23-ac41-967aa4795683" --connect-timeout 300
+        docker exec website-db-1 mysqladmin extended-status -h localhost --user root --password "3974a5af-317d-5d23-ac41-967aa4795683" --connect-timeout 300
 
     - name: Show logs
       shell: bash
