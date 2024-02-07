@@ -22,6 +22,7 @@ runs:
       shell: bash
       run: npm ci
       working-directory: ${{ inputs.working-directory }}
+
     - if: ${{ !inputs.skip-server }}
       uses: isbang/compose-action@v1.5.1
       name: Start a server instance to use in the pipeline
@@ -45,6 +46,7 @@ runs:
       shell: bash
       run: |
         curl http://localhost:8080/index.php?graphql
+        docker logs website-db-1
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
