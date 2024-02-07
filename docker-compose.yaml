@@ -23,7 +23,8 @@ services:
     build: "./php"
     restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DB_NAME: "${DB_NAME}"
       DB_USER: "${DB_USER}"
@@ -60,7 +61,8 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       PMA_HOST: db
       PMA_USER: "${DB_USER}"
