@@ -50,7 +50,7 @@ runs:
     - name: Show logs
       shell: bash
       run: >
-        docker exec website-db-1 -t
+        docker exec website-db-1 -t mysqladmin ping -h localhost
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
