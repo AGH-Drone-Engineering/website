@@ -50,7 +50,7 @@ runs:
     - name: Show logs
       shell: bash
       run: >
-        docker logs website-db-1
+        docker exec website-db-1 -t
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
