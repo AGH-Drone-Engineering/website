@@ -93,3 +93,52 @@ Wszystkie taski związane z developmentem strony rozpisane są na [trello](https
     npm install --location=global @graphql-codegen/typescript
     ```
     i spróbowanie ponownego uruchomienia aplikacji. Jeżeli to nie pomoże, to nie wiem co xD. Jest to problem którego definitywnego rozwiązania jeszcze nie znalazłem, ciężko to idzie ogółem.
+
+## Development
+
+### Dodawanie nowego bloczku
+1. Upewniamy się że mamy zainstalowane w vscode rozszerzenie "File template manager":
+![](./resources/extension.jpg)
+1. Tworzymy nowy podfolder w folderze `Custom blocks/src/blocks`
+![](./resources/newdir.jpg)
+1. Uzupełniamy folder plikami za pomocą rozszerzenia do templatek
+![](./resources/step3-1.jpg)
+![](./resources/step3-2.jpg)
+Po zakończeniu działania rozszerzenia folder powinien wyglądać następująco
+![](./resources/image.png)
+
+1. Uzupełniamy wymagane przez blok atrybuty - edytor powinien sam podpowiadać odpowiednie pola
+![](./resources/image-5.png)
+1. Jeżeli atrybuty komponentu wymagają dodatkowej konfiguracji interfejsu edytorskiego, dodajemy ją w pliku `editorConfig.ts`
+   ![](./resources/image123123123.png)
+   Np tak
+   ![](./resources/image-6.png)
+2. W projekcie "Custom blocks" uruchamiamy komendę `npm start` (lub `npm run build` jeżeli chcemy tylko raz zbudować bloczki i nie planujemy w nich dłużej grzebać). Powinna ona wyprodukować coś co wygląda podobnie do poniższego screenshota
+![](./resources/image-1.png)
+
+1. Przechodzimy do projektu "Frontend"
+2. Tworzymy nowy podfolder w `blocks/custom`
+![](./resources/image-2.png)
+1. Uzupełniamy go templatką podobnie jak w punkcie 3, wybierając grupę "Custom block"
+![](./resources/image-3.png)
+Po wygenerowaniu plików plik z komponentem powinien wyglądać mniej wiecej tak
+![](./resources/image-4.png)
+1. W nowo wygenerowanym pliku z komponentem uzupełniamy query fragment komponentu o skonfigurowane wcześniej w pliku `block.json` atrybuty (IDE samo powinno je podpowiedzieć, ew może być wymagany restart rozszerzenia do graphql aby odświeżyć schema)
+   ![](./resources/image-7.png)
+1. Stworzony komponent dopisać do pliku `blocks/index.ts` pod kluczem `Custom<NazwaBloku>`
+   ![](./resources/image-9.png)
+1. Zmienną z fragmentem dopisać do query w pliku `api/queries/getEditorBlocks.ts` w następujący sposób:
+   ![](./resources/image-10.png)
+   Na górze dodajemy nazwę zmiennej zawierającej fragment, a na dole nazwę tego fragmentu
+2. W folderze Frontend uruchamiamy komendę `npm run predev` aby wygenerować na nowo pliki z definicjami typów Graphqlowych. Powinna ona wyprodukować coś podobnego do tego
+   ![](./resources/image-8.png)
+1. Teraz już możemy użyć atrybutów bloku w komponencie
+   ![](./resources/image-11.png)
+1. Na końcu uzupełniamy argumenty do story nowego bloczka
+   ![](./resources/image-12.png)
+1. Aby przetestować wygląd nowego bloczka wchodzimy na jakąś stronę/post w edytorze wordpressowym, klikamy plusik i jeśli zrobiliśmy wszystko poprawnie to powinniśmy być w stanie znaleźć tutaj nasz nowy bloczek
+   ![](./resources/image-13.png)
+1. Pojawi się interfejs edytorski bloczka, stworzony na podstawie definicji atrybutów oraz konfiguracji z `editorConfig.ts`
+   ![](./resources/image-14.png)
+1. Klikamy "update" i przechodzimy do uruchomionego projektu frontendowego, odpalamy w nim stronę na której dodaliśmy bloczek i oglądamy nasz nowy bloczek
+   ![](./resources/image-15.png)
