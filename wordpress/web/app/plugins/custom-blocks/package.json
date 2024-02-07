@@ -8,10 +8,17 @@
         "build": "wp-scripts build"
     },
     "dependencies": {
+        "@apollo/client": "^3.9.3",
         "@wordpress/block-editor": "^12.13.0",
-        "@wordpress/blocks": "^12.22.0"
+        "@wordpress/blocks": "^12.22.0",
+        "@wordpress/components": "^25.16.0",
+        "@wordpress/core-data": "^6.27.2",
+        "@wordpress/data": "^9.20.0",
+        "graphql": "^16.8.1",
+        "lodash": "^4.17.21"
     },
     "devDependencies": {
+        "@types/lodash": "^4.14.202",
         "@types/wordpress__block-editor": "^11.5.7",
         "@types/wordpress__blocks": "^12.5.9",
         "@typescript-eslint/eslint-plugin": "^6.7.2",

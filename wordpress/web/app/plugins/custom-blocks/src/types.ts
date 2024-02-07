@@ -1,15 +1,19 @@
-import { BlockAttribute } from '@wordpress/blocks';
+import { BlockAttribute, BlockConfiguration } from '@wordpress/blocks';
 
 export type FieldType = Extract<
     BlockAttribute<unknown>,
     { type: string }
 >['type'];
 
-export interface EditorConfig {
-    editorFields: Record<string, EditorFieldConfig>;
+export interface EditorConfig<T extends Record<string, unknown>> {
+    editorFields: Partial<Record<keyof T, EditorFieldConfig>>;
 }
 
 export type BlockAttributes = Record<string, BlockAttribute<unknown>>;
+
+export type BlockAttrsWithOptionalEditSave<T extends Record<string, unknown>> =
+    Omit<BlockConfiguration<T>, 'edit' | 'save'> &
+        Partial<Pick<BlockConfiguration<T>, 'edit' | 'save'>>;
 
 /**
  *  Should return true or undefined when the attr value is valid, and a string containing a validation error otherwise
@@ -21,6 +25,9 @@ export type AttrValidator = (
 export type EditorFieldConfig = {
     location?: 'inspector' | 'editor';
     isValid?: AttrValidator;
+    label?: string;
+    order?: number;
+    description?: string;
 } & (
     | {
           control: 'color';
@@ -32,7 +39,7 @@ export type EditorFieldConfig = {
       }
     | {
           control: 'radio';
-          options: { label?: string; value: string }[];
+          options: { label: string; value: string }[];
           defaultValue?: string;
       }
     | {
@@ -54,7 +61,7 @@ export type EditorFieldConfig = {
       }
     | {
           control: 'select';
-          options: { label?: string; value: string }[];
+          options: { label: string; value: string }[];
           defaultValue?: string;
       }
     | {
@@ -67,5 +74,6 @@ export type EditorFieldConfig = {
     | {
           control: 'textarea';
           initialLines?: number;
+          defaultValue?: string;
       }
 );
