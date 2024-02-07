@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: npm ci
       working-directory: ${{ inputs.working-directory }}
-    - if: ${{ !!inputs.skip-server }}
+    - if: ${{ !inputs.skip-server }}
       uses: isbang/compose-action@v1.5.1
       name: Start a server instance to use in the pipeline
       with:
@@ -41,7 +41,7 @@ runs:
         WP_LOGGED_IN_SALT: "6AI&+(s<p7{NPv2}U{9wXg8u>CY,d,-v^TAJ[3/K=D+Hm*AP.3uB{{Uaqt1nlr^G"
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
 
-    - if: ${{ !!inputs.skip-server && !!inputs.generate-files }}
+    - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8080"
