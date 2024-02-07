@@ -40,7 +40,7 @@ Wszystkie taski związane z developmentem strony rozpisane są na [trello](https
       .\composer install
       ```
       **Ważne:** nie należy pomijać `.\` na początku komendy (ma się wykonać lokalny skrypt obecny w folderze `wordpress`)
-   * W folderze 'Custom blocks` uruchom komendę
+   * W folderze `Custom blocks` uruchom komendę
       ```ps1
         npm install
       ```
