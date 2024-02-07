@@ -44,8 +44,12 @@ runs:
 
     - name: Test response
       shell: bash
-      run: |
+      run: >
         curl http://localhost:8080/index.php?graphql
+
+    - name: Show logs
+      shell: bash
+      run: >
         docker logs website-db-1
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
