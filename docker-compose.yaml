@@ -38,6 +38,7 @@ services:
 
   nginx:
     image: wordpress-nginx
+    container_name: "nginx-${TEST}"
     build: './nginx'
     depends_on:
       - php

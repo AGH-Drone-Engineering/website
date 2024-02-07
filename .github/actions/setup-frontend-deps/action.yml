@@ -28,6 +28,7 @@ runs:
       with:
         compose-file: ./docker-compose.yaml
       env:
+        TEST: test
         DB_ROOT_PASSWORD: "3974a5af-317d-5d23-ac41-967aa4795683"
         DB_NAME: "WP_DB"
         DB_USER: "Wordpress"
