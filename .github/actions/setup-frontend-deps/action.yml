@@ -19,12 +19,12 @@ runs:
     - name: Install dependencies
       shell: bash
       run: npm ci
-      working-directory: ${{ inputs.workdir }}
+      working-directory: ${{ inputs.working-directory }}
     - if: ${{ !!inputs.wordpress-url }}
       name: Generate missing files
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "${{ inputs.wordpress-url }}"
       shell: bash
       run: npm run prebuild
-      working-directory: ${{ inputs.workdir }}
+      working-directory: ${{ inputs.working-directory }}
 
