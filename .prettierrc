@@ -5,3 +5,4 @@ singleQuote: true
 bracketSameLine: false
 arrowParens: 'avoid'
 singleAttributePerLine: true
+endOfLine: crlf
