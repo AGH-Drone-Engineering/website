@@ -18,7 +18,7 @@ jobs:
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                generate-files: true
             - name: Run formatting check
               run: npm run format-check
 
@@ -34,7 +34,7 @@ jobs:
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                generate-files: true
             - name: Run typecheck
               run: npm run typecheck
 
@@ -50,7 +50,7 @@ jobs:
             - name: Setup app dependencies and code generation
               uses: ./.github/actions/setup-frontend-deps
               with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+                generate-files: true
             - name: Run lint
               run: npm run lint-errors-only
 
@@ -59,7 +59,7 @@ jobs:
         runs-on: ubuntu-latest
         environment: Integration
         env:
-            NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+            NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8080"
             NEXT_BASE_PATH: "/${{ vars.WEBPAGE_DESTINATION_DIR }}"
         defaults:
             run:
