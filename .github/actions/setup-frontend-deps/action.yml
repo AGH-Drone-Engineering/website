@@ -50,25 +50,11 @@ runs:
         WP_LOGGED_IN_SALT: "6AI&+(s<p7{NPv2}U{9wXg8u>CY,d,-v^TAJ[3/K=D+Hm*AP.3uB{{Uaqt1nlr^G"
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
 
-    - name: Show status
-      shell: bash
-      run: >
-        docker exec website-db-1 mysqladmin extended-status -h 127.0.0.1 --user Wordpress --password="ca0f5308-6a49-59bc-b458-281a830f79de" --connect-timeout 300
-
-    - name: Ping database from php
-      shell: bash
-      run: >
-        docker exec website-php-1 ping -c 4 db
-
-    - name: Show result
-      shell: bash
-      run: >
-        curl http://localhost:8000/index.php?graphql
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
       env:
-        NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8080"
+        NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"
       shell: bash
       run: npm run prebuild
       working-directory: ./frontend
