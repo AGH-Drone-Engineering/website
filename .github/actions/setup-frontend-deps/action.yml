@@ -63,7 +63,7 @@ runs:
     - name: Show result
       shell: bash
       run: >
-        curl http://localhost/index.php?graphql
+        curl http://localhost:8000/index.php?graphql
 
     - if: ${{ !inputs.skip-server && !!inputs.generate-files }}
       name: Generate missing files
