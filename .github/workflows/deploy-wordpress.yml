@@ -85,6 +85,9 @@ jobs:
             - name: Build custom blocks
               run: npm run build
               working-directory: ./wordpress/web/app/plugins/custom-blocks
+              env:
+                # This will cause the generated possibleTypes to be outdated, but that should not be a big issue
+                NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
             - name: Create outer htaccess file
               run: |
                 cat << EOF > .htaccess
