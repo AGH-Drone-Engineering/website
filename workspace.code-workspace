@@ -1,6 +1,10 @@
 {
     "folders": [
         {
+            "path": ".",
+            "name": "Root"
+        },
+        {
             "path": "wordpress",
             "name": "Wordpress"
         },
@@ -9,8 +13,8 @@
             "name": "Frontend"
         },
         {
-            "path": ".",
-            "name": "Root"
+            "name": "Custom blocks",
+            "path": "wordpress/web/app/plugins/custom-blocks"
         }
     ],
     "settings": {
@@ -21,55 +25,18 @@
             "**/node_modules": true
         },
         "editor.codeActionsOnSave": {
-            "source.fixAll": true
+            "source.fixAll": "explicit"
         },
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
         "typescript.format.enable": true,
         "eslint.lintTask.enable": true,
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-        "editor.formatOnPaste": false, // required
-        "editor.formatOnType": false, // required
-        "editor.formatOnSave": true, // optional
-        "editor.formatOnSaveMode": "file", // required to format on save
-        "vs-code-prettier-eslint.prettierLast": false, // set as "true" to run 'prettier' last not first
-        "i18n-ally.enabledFrameworks": ["react", "i18next", "general"],
-        "i18n-ally.enabledParsers": ["json"],
-        "i18n-ally.extract.autoDetect": true,
-        "i18n-ally.autoDetection": true,
-        "i18n-ally.indent": 4,
-        "i18n-ally.namespace": true,
-        "i18n-ally.annotationInPlace": false,
-        "i18n-ally.pathMatcher": "{locale}/{namespace}.json",
-        "i18n-ally.defaultNamespace": "common",
-        "i18n-ally.annotationDelimiter": ":",
-        "i18n-ally.dirStructure": "dir",
-        "i18n-ally.preferredDelimiter": ":",
-        "i18n-ally.regex.key": "[\\w\\d\\. \\-\\[\\]:]*?",
-        "i18n-ally.sourceLanguage": "en",
-        "i18n-ally.extract.ignored": [
-            "(",
-            ")",
-            "[",
-            "]",
-            "{",
-            "}",
-            " (",
-            ")\r\n        ",
-            "noopener noreferer",
-            "w-full !bg-transparent",
-            "YYYY-MM-DD, HH:mm",
-            "DD MMMM YYYY",
-            "DD MMMM YYYY",
-            "No data sent",
-            "Invalid payload",
-            "Sorry! Something went wrong. Try again later."
-        ],
-        "i18n-ally.keystyle": "nested",
-        "i18n-ally.extract.keygenStyle": "camelCase",
-        "i18n-ally.fullReloadOnChanged": true,
-        "i18n-ally.localesPaths": ["public/locales"],
-        "powershell.cwd": "d:\\Projekty\\web\\AGHDE-website",
+        "editor.formatOnPaste": false,
+        "editor.formatOnType": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "vs-code-prettier-eslint.prettierLast": false,
         "files.associations": {
             "*.env*": "ini"
         },
