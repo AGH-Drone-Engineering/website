@@ -54,6 +54,8 @@ runs:
     - if: ${{ !inputs.skip-server }}
       shell: bash
       run: npm run build
+      env:
+        NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"
       working-directory: ./wordpress/web/app/plugins/custom-blocks
 
     - if: ${{ !inputs.skip-server }}
