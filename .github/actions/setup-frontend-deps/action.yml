@@ -52,6 +52,11 @@ runs:
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
 
     - if: ${{ !inputs.skip-server }}
+      shell: bash
+      run: npm run build
+      working-directory: ./wordpress/web/app/plugins/custom-blocks
+
+    - if: ${{ !inputs.skip-server }}
       name: Generate missing GQL type files in frontend
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"
@@ -59,7 +64,3 @@ runs:
       run: npm run prebuild
       working-directory: ./frontend
 
-    - if: ${{ !inputs.skip-server }}
-      shell: bash
-      run: npm run build
-      working-directory: ./wordpress/web/app/plugins/custom-blocks
