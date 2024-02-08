@@ -77,14 +77,14 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 20
-                  cache-dependency-path: .wordpress/web/app/plugins/custom-blocks/package-lock.json
+                  cache-dependency-path: ./wordpress/web/app/plugins/custom-blocks/package-lock.json
                   cache: 'npm'
             - name: Install custom blocks dependencies
               run: npm ci
-              working-directory: .wordpress/web/app/plugins/custom-blocks
+              working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Build custom blocks
               run: npm run build
-              working-directory: .wordpress/web/app/plugins/custom-blocks
+              working-directory: ./wordpress/web/app/plugins/custom-blocks
             - name: Create outer htaccess file
               run: |
                 cat << EOF > .htaccess
