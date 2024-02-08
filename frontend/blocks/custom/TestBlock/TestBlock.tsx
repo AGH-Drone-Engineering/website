@@ -19,12 +19,23 @@ export const testBlockFragment: TypedDocumentNode<TestBlockFragment> = gql`
 `;
 
 export const TestBlock: BlockComponent<'CustomTest'> = ({ block }) => (
-    <div className={classes.root} >
-        <div>Toggle test - {block.attributes?.toggleTest ? 'true' : 'false'}</div>
+    <div className={classes.root}>
+        <div>
+            Toggle test - {block.attributes?.toggleTest ? 'true' : 'false'}
+        </div>
         <div>Number test - {block.attributes?.numberTest}</div>
-        <div>Number with range test - {block.attributes?.numberWithRangeTest}</div>
-        <div><Link href={block.attributes?.linkTest ?? '/'}>Link test</Link></div>
-        <div className={classes.colorBox} style={{ background: block.attributes?.test ?? 'white' }}>Color test</div>
+        <div>
+            Number with range test - {block.attributes?.numberWithRangeTest}
+        </div>
+        <div>
+            <Link href={block.attributes?.linkTest ?? '/'}>Link test</Link>
+        </div>
+        <div
+            className={classes.colorBox}
+            style={{ background: block.attributes?.test ?? 'white' }}
+        >
+            Color test
+        </div>
         <div>Range test - {block.attributes?.rangeTest}</div>
     </div>
 );

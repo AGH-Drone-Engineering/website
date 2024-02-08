@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TestBlock as TestBlockComponent } from './TestBlock';
 
 interface StoryArgs {
-    link: string,
+    link: string;
     number: number;
     numberRange: number;
     toggle: boolean;
