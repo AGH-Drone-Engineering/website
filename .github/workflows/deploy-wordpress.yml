@@ -88,6 +88,9 @@ jobs:
         env:
           # This will cause the generated possibleTypes to be outdated, but that should not be a big issue
           NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
+      - name: Remove blocks node_modules
+        run: rm -rf node_modules
+        working-directory: ./wordpress/web/app/plugins/custom-blocks
       - name: Create outer htaccess file
         run: |
           cat << EOF > .htaccess
