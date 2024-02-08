@@ -60,5 +60,6 @@ runs:
       working-directory: ./frontend
 
     - if: ${{ !inputs.skip-server }}
+      shell: bash
       run: npm run build
       working-directory: ./wordpress/web/app/plugins/custom-blocks
