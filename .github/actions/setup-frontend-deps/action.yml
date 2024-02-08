@@ -24,6 +24,14 @@ runs:
       working-directory: ${{ inputs.working-directory }}
 
     - if: ${{ !inputs.skip-server }}
+      name: Install wordpress dependencies
+      uses: php-actions/composer@v6
+      env:
+        COMPOSER: "composer.json"
+      with:
+        working_dir: ./wordpress
+
+    - if: ${{ !inputs.skip-server }}
       uses: isbang/compose-action@v1.5.1
       name: Start a server instance to use in the pipeline
       with:
