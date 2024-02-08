@@ -92,3 +92,5 @@ RUN { \
 		echo 'ignore_repeated_source = Off'; \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
+
+RUN apt-get install -y --no-install-recommends ping
