@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import possibleTypes from '../../../../../../frontend/possibleTypes.json';
+import possibleTypes from '../possibleTypes.json';
 
 export const client = new ApolloClient({
     uri: `${window.location.origin}/index.php?graphql`,

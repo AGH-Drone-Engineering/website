@@ -10,7 +10,10 @@
         "format-check": "prettier-eslint --list-different \"./src/**/*.{css,js,json,ts,tsx}\"",
         "lint": "eslint .",
         "lint-errors-only": "npm run lint -- --quiet",
-        "typecheck": "tsc"
+        "generate:possible-types": "faust generatePossibleTypes",
+        "typecheck": "tsc",
+        "prestart": "npm run generate:possible-types",
+        "prebuild": "npm run generate:possible-types"
     },
     "dependencies": {
         "@apollo/client": "^3.9.3",
@@ -23,6 +26,7 @@
         "lodash": "^4.17.21"
     },
     "devDependencies": {
+        "@faustwp/cli": "^2.0.0",
         "@types/lodash": "^4.14.202",
         "@types/wordpress__block-editor": "^11.5.7",
         "@types/wordpress__blocks": "^12.5.9",
