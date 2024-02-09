@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { BlockAttribute, BlockEditProps } from '@wordpress/blocks';
 import { PanelBody } from '@wordpress/components';
+import { store } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
 import { capitalize, flow, lowerCase } from 'lodash';
-import { client } from '../apiClient';
+import { getClient } from '../apollo';
 import {
     BlockAttrsWithOptionalEditSave,
     EditorConfig,
@@ -55,9 +58,16 @@ const isRichText = (attribute: BlockAttribute<unknown>): boolean => typeof attri
 
 export const Edit = (
     meta: BlockAttrsWithOptionalEditSave<Record<string, unknown>>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     config?: EditorConfig<Record<string, unknown>>,
 ): React.FC<BlockEditProps<Record<string, unknown>>> => function CustomBlockEdit({ attributes, setAttributes }) {
+        const wpUrl: string | undefined = useSelect(
+            // @ts-expect-error this function is not present in the typings
+            select => select(store).getSite()?.url,
+            [],
+        );
+
+        const apolloClient = useMemo(() => getClient(wpUrl), [wpUrl]);
+
         // filter out config entries that are not present in the attributes object
         const localConfig = Object.fromEntries<EditorFieldConfig>(
             Object.entries<EditorFieldConfig>(
@@ -99,9 +109,15 @@ export const Edit = (
             }
         }
 
+        const blockProps = useBlockProps();
+
+        if (!apolloClient) {
+            return <div {...blockProps}>Loading...</div>;
+        }
+
         return (
-            <ApolloProvider client={client}>
-                <div {...useBlockProps()}>
+            <ApolloProvider client={apolloClient}>
+                <div {...blockProps}>
                     <h3 className={classes.title}>{meta.title}</h3>
                     <InspectorControls>
                         <PanelBody title="Block settings">
