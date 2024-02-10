@@ -110,7 +110,6 @@ jobs:
   custom-blocks-build:
     name: Custom blocks config - build
     runs-on: ubuntu-latest
-    environment: Integration
     defaults:
       run:
         working-directory: ./wordpress/web/app/plugins/custom-blocks
