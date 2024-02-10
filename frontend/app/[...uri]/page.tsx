@@ -54,7 +54,7 @@ export async function generateMetadata({
     };
 }
 
-export default async function NodeByUriPagePage({
+export default async function NodeByUriPage({
     params: { uri },
 }: {
     params: Params;
