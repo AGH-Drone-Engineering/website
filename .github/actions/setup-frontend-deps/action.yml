@@ -52,7 +52,13 @@ runs:
         WP_NONCE_SALT: "_$0RvaJ9KP:t%^2*OWi,Pdc=IzRK0dV_1771{6dGUGMx3YiQA]X=,%AZ#n<7]YD!"
 
     - if: ${{ !inputs.skip-server }}
+      name: Activate all wordpress plugins
       shell: bash
+      run: docker exec wordpress-php wp plugin activate --all --allow-root
+
+    - if: ${{ !inputs.skip-server }}
+      shell: bash
+      name: Run custom blocks build
       run: npm run build
       env:
         NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"

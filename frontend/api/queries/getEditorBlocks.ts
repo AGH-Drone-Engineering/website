@@ -9,6 +9,7 @@ export const getEditorBlocksByUri: TypedDocumentNode<GetEditorBlocksByUriQuery> 
 
     query GetEditorBlocksByUri($uri: String!) {
         nodeByUri(uri: $uri) {
+            id
             ... on NodeWithEditorBlocks {
                 editorBlocks(flat: true) {
                     __typename

@@ -1,18 +1,11 @@
 import { Metadata } from 'next';
 import { getClient } from '~/api/apolloClient';
-import { getWebsiteNameQuery } from '~/api/queries/getTitle';
 import { seedQuery } from '~/api/queries/seedQuery';
 import { WordpressTemplateViewer } from '~/components/WordpressTemplateViewer';
+import { getSeoMetadata } from '~/utils/getSeoMetadata';
 
-export async function generateMetadata(): Promise<Metadata> {
-    const { data } = await getClient().query({
-        query: getWebsiteNameQuery,
-    });
-
-    return {
-        title: data.generalSettings?.title,
-        description: data.generalSettings?.description,
-    };
+export function generateMetadata(): Promise<Metadata> {
+    return getSeoMetadata('/');
 }
 
 export default async function RootPage() {

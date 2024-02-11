@@ -21,6 +21,7 @@ services:
   php:
     image: wordpress-php
     build: "./php"
+    container_name: wordpress-php
     restart: unless-stopped
     depends_on:
       db:
