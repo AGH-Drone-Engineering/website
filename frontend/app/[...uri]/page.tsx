@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getClient } from '~/api/apolloClient';
-import { getNodeAndWebsiteNameQuery } from '~/api/queries/getTitle';
 import { seedQuery } from '~/api/queries/seedQuery';
 import { WordpressTemplateViewer } from '~/components/WordpressTemplateViewer';
+import { getSeoMetadata } from '~/utils/getSeoMetadata';
+import { isTruthy } from '~/utils/isTruthy';
 import { allNodeUrisQuery } from './page.queries';
 
 interface Params {
@@ -20,7 +20,7 @@ export async function generateStaticParams(): Promise<Params[]> {
     const result =
         data.contentNodes?.edges
             .map<Params>(({ node }) => ({
-                uri: node.uri?.split('/').filter(str => !!str) ?? [],
+                uri: node.uri?.split('/').filter(isTruthy) ?? [],
             }))
             .filter(({ uri }) => uri.length > 0) ?? [];
 
@@ -32,26 +32,8 @@ export async function generateStaticParams(): Promise<Params[]> {
     return result;
 }
 
-export async function generateMetadata({
-    params: { uri },
-}: {
-    params: Params;
-}): Promise<Metadata> {
-    const { data } = await getClient().query({
-        query: getNodeAndWebsiteNameQuery,
-        variables: {
-            uri: uri.join('/'),
-        },
-    });
-
-    if (!data.contentNode) {
-        return {};
-    }
-
-    return {
-        title: `${data.generalSettings?.title} - ${data.contentNode?.title}`,
-        description: data.generalSettings?.description,
-    };
+export function generateMetadata({ params: { uri } }: { params: Params }) {
+    return getSeoMetadata('/' + uri.join('/'));
 }
 
 export default async function NodeByUriPage({

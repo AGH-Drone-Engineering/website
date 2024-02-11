@@ -29,6 +29,7 @@ jobs:
     env:
       NEXT_PUBLIC_WORDPRESS_URL: "https://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
       NEXT_BASE_PATH: "/${{ vars.WEBPAGE_DESTINATION_DIR }}"
+      NEXT_PUBLIC_SITE_URL: "https://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WEBPAGE_DESTINATION_DIR }}"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3

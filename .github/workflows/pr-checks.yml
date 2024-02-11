@@ -54,6 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
     defaults:
       run:
         working-directory: ./frontend
