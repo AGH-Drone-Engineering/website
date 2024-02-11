@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@apollo/client": "^3.8.4",
-        "@apollo/experimental-nextjs-app-support": "^0.4.3",
+        "@apollo/experimental-nextjs-app-support": "^0.8.0",
         "@mantine/core": "^7.1.2",
         "@mantine/hooks": "^7.1.2",
         "graphql": "^16.8.1",
@@ -69,6 +69,7 @@
         "postcss-preset-mantine": "^1.8.0",
         "postcss-simple-vars": "^7.0.1",
         "prettier": "^2.8.8",
+        "prettier-eslint": "^16.3.0",
         "prettier-eslint-cli": "^7.1.0",
         "storybook": "^7.4.4",
         "ts-node": "^10.9.1",
