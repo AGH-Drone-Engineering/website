@@ -54,7 +54,7 @@ runs:
     - if: ${{ !inputs.skip-server }}
       name: Activate all wordpress plugins
       shell: bash
-      run: docker exec wordpress-php wp plugin activate --all
+      run: docker exec wordpress-php wp plugin activate --all --allow-root
 
     - if: ${{ !inputs.skip-server }}
       shell: bash
