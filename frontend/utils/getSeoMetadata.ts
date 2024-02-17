@@ -1,5 +1,6 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
 import { Metadata } from 'next';
+import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
 import { getClient } from '~/api/apolloClient';
 import { GetSeoQuery, GetSeoQueryVariables } from '~/models/graphql.generated';
 import { isTruthy } from './isTruthy';
@@ -23,6 +24,9 @@ export const getSeoQuery: TypedDocumentNode<
                     opengraphType
                     opengraphTitle
                     opengraphSiteName
+                    opengraphModifiedTime
+                    opengraphPublishedTime
+                    opengraphAuthor
                     opengraphImage {
                         sourceUrl
                     }
@@ -49,6 +53,13 @@ export const getSeoQuery: TypedDocumentNode<
                     uri
                     language {
                         locale
+                    }
+                }
+                tags {
+                    edges {
+                        node {
+                            name
+                        }
                     }
                 }
             }
@@ -78,6 +89,26 @@ export const getSeoMetadata = async (uri: string): Promise<Metadata> => {
             process.env.NEXT_PUBLIC_SITE_URL,
         ) ?? undefined;
 
+    const openGraphCommon: OpenGraph = {
+        locale: language?.locale ?? undefined,
+        url,
+        title: seo?.opengraphTitle || undefined,
+        description: seo?.opengraphDescription || undefined,
+        siteName: seo?.opengraphSiteName || undefined,
+        images: seo?.opengraphImage?.sourceUrl
+            ? [
+                  {
+                      url: seo.opengraphImage.sourceUrl,
+                  },
+              ]
+            : undefined,
+        alternateLocale:
+            translations
+                ?.filter(isTruthy)
+                .map(({ language: translationLang }) => translationLang?.locale)
+                ?.filter(isTruthy) ?? [],
+    };
+
     return {
         metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL),
         title: seo?.title ?? undefined,
@@ -106,27 +137,25 @@ export const getSeoMetadata = async (uri: string): Promise<Metadata> => {
                     .filter(isTruthy) ?? [],
             ),
         },
-        openGraph: {
-            type: 'website',
-            locale: language?.locale ?? undefined,
-            url,
-            title: seo?.opengraphTitle || undefined,
-            description: seo?.opengraphDescription || undefined,
-            siteName: seo?.opengraphSiteName || undefined,
-            images: seo?.opengraphImage?.sourceUrl
-                ? [
-                      {
-                          url: seo.opengraphImage.sourceUrl,
-                      },
-                  ]
-                : undefined,
-            alternateLocale:
-                translations
-                    ?.filter(isTruthy)
-                    .map(
-                        ({ language: translationLang }) => translationLang?.locale,
-                    )
-                    ?.filter(isTruthy) ?? [],
-        },
+        openGraph:
+            data.__typename === 'Page'
+                ? {
+                      type: 'website',
+                      ...openGraphCommon,
+                  }
+                : {
+                      type: 'article',
+                      ...openGraphCommon,
+                      authors: data.seo?.opengraphAuthor
+                          ? [data.seo.opengraphAuthor]
+                          : undefined,
+                      modifiedTime:
+                          data.seo?.opengraphModifiedTime ?? undefined,
+                      publishedTime:
+                          data.seo?.opengraphPublishedTime ?? undefined,
+                      tags: data.tags?.edges
+                          .map(({ node }) => node.name)
+                          .filter(isTruthy),
+                  },
     };
 };
