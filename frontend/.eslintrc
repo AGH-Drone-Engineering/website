@@ -36,6 +36,10 @@
                 "img": ["Image"]
             }
         ],
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            { "args": "none", "varsIgnorePattern": "(^_|React)" }
+        ],
         "no-confusing-arrow": "warn",
         "no-constructor-return": "warn",
         "no-eval": "error",

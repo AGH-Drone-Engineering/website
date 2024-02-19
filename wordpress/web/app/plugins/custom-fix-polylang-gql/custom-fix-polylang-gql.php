@@ -11,8 +11,8 @@
  * depending on what language you was requesting
  *
  * https://github.com/valu-digital/wp-graphql-polylang/issues/35
+ * https://github.com/valu-digital/wp-graphql-polylang/issues/35#issuecomment-1012572074
  */
-
 add_filter('request', function ($query_args) {
     if (isset($query_args['uri']) && $query_args['uri'] && isset($query_args['lang'])) {
         $explodedUri = explode('/', $query_args['uri']);
@@ -35,24 +35,23 @@ add_filter('request', function ($query_args) {
     return $query_args;
 }, 10, 2);
 
+
+// https://github.com/valu-digital/wp-graphql-polylang/issues/35#issuecomment-1558145686
 add_filter('graphql_resolve_field', function ($result, $source, $args, $context, $info, $type_name, $field_key, $field, $field_resolver) {
     if ($type_name === 'RootQuery' && $field_key === 'nodeByUri') {
         // explode uri and get only the middle part
         $exploded = explode('/', $args['uri']);
+        $exploded = array_filter($exploded, function ($elem) {
+            return strlen($elem) > 0;
+        });
+
+        if (count($exploded) !== 1) {
+            return $result;
+        }
+
         $lang = $exploded[1];
 
-        // if $exploded length is more than 3 it means that the uri is not a front page
-        if (count($exploded) > 3) {
-            return $result;
-        }
-
-        // if $exploded length is less than 2 it means that the uri is not a front page
-        if (count($exploded) < 2) {
-            return $result;
-        }
-
         // check if language exists in pll
-
         $valid_languages = pll_languages_list();
 
         if (in_array($lang, $valid_languages)) {

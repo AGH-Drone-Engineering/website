@@ -1,72 +1,121 @@
 name: Pull request checks
 
 on:
-    pull_request:
-        types:
-            - opened
-            - reopened
-        branches:
-            dev
+  pull_request:
+    branches:
+      dev
 
 jobs:
-    formatting:
-        name: Formatting
-        environment: Integration
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./frontend
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup app dependencies and code generation
-              uses: ./.github/actions/setup-frontend-deps
-              with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-            - name: Run formatting check
-              run: npm run format-check
-    typecheck:
-        name: Typecheck
-        runs-on: ubuntu-latest
-        environment: Integration
-        defaults:
-            run:
-                working-directory: ./frontend
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup app dependencies and code generation
-              uses: ./.github/actions/setup-frontend-deps
-              with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-            - name: Run typecheck
-              run: npm run typecheck
-    lint:
-        name: Eslint
-        runs-on: ubuntu-latest
-        environment: Integration
-        defaults:
-            run:
-                working-directory: ./frontend
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup app dependencies and code generation
-              uses: ./.github/actions/setup-frontend-deps
-              with:
-                wordpress-url: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-            - name: Run lint
-              run: npm run lint-errors-only
-    build:
-        name: App build - integration
-        runs-on: ubuntu-latest
-        environment: Integration
-        env:
-            NEXT_PUBLIC_WORDPRESS_URL: "http://${{ vars.WEBPAGE_DOMAIN }}/${{ vars.WORDPRESS_DESTINATION_DIR }}"
-            NEXT_BASE_PATH: "/${{ vars.WEBPAGE_DESTINATION_DIR }}"
-        defaults:
-            run:
-                working-directory: ./frontend
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup app dependencies and code generation
-              uses: ./.github/actions/setup-frontend-deps
-            - name: Build
-              run: npm run build
+  frontend-formatting:
+    name: Frontend - formatting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies and code generation
+        uses: ./.github/actions/setup-frontend-deps
+        with:
+          skip-server: true
+      - name: Run formatting check
+        run: npm run format-check
+
+  frontend-typecheck:
+    name: Frontend - typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies and code generation
+        uses: ./.github/actions/setup-frontend-deps
+      - name: Run typecheck
+        run: npm run typecheck
+
+  frontend-lint:
+    name: Frontend - eslint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies and code generation
+        uses: ./.github/actions/setup-frontend-deps
+        with:
+          skip-server: true
+      - name: Run lint
+        run: npm run lint-errors-only
+
+  frontend-build:
+    name: Frontend - app build
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_WORDPRESS_URL: "http://localhost:8000"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies and code generation
+        uses: ./.github/actions/setup-frontend-deps
+      - name: Build
+        run: npm run build
+
+  custom-blocks-formatting:
+    name: Custom blocks config - formatting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./wordpress/web/app/plugins/custom-blocks
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies
+        uses: ./.github/actions/setup-frontend-deps
+        with:
+          skip-server: true
+      - name: Run formatting check
+        run: npm run format-check
+
+  custom-blocks-typecheck:
+    name: Custom blocks config - typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./wordpress/web/app/plugins/custom-blocks
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies
+        uses: ./.github/actions/setup-frontend-deps
+      - name: Run typecheck
+        run: npm run typecheck
+
+  custom-blocks-lint:
+    name: Custom blocks config - eslint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./wordpress/web/app/plugins/custom-blocks
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup app dependencies
+        uses: ./.github/actions/setup-frontend-deps
+        with:
+          skip-server: true
+      - name: Run lint
+        run: npm run lint-errors-only
+
+  custom-blocks-build:
+    name: Custom blocks config - build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./wordpress/web/app/plugins/custom-blocks
+    steps:
+      - uses: actions/checkout@v4
+      # the blocks build is included in setting up the dependencies, so does not need to be specified here
+      - name: Setup app dependencies and build blocks
+        uses: ./.github/actions/setup-frontend-deps
