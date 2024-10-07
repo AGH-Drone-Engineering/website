@@ -23,6 +23,7 @@
         "@apollo/experimental-nextjs-app-support": "^0.8.0",
         "@mantine/core": "^7.1.2",
         "@mantine/hooks": "^7.1.2",
+        "classnames": "^2.5.1",
         "graphql": "^16.8.1",
         "next": "latest",
         "react": "18.2.0",
@@ -73,6 +74,7 @@
         "prettier-eslint-cli": "^7.1.0",
         "storybook": "^7.4.4",
         "ts-node": "^10.9.1",
+        "tsconfig-paths-webpack-plugin": "^4.1.0",
         "typescript": "^5.2.2"
     },
     "eslintConfig": {
