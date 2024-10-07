@@ -9,8 +9,8 @@ import {
     TextControl,
     ToggleControl,
 } from '@wordpress/components';
-import { EditorFieldConfig } from '../types';
-import { InternalLinkSelect } from './controls/InternalLinkSelect';
+import { EditorFieldConfig } from '../../types';
+import { InternalLinkSelect } from '../controls/InternalLinkSelect';
 import classes from './Edit.module.css';
 
 interface FieldForConfigEntryProps {
