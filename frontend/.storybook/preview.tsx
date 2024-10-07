@@ -1,7 +1,8 @@
-import type { Preview } from '@storybook/react';
 import React from 'react';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core'
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import type { Preview } from '@storybook/react';
 import '@mantine/core/styles.css';
+import '~/styles/global.css';
 
 const preview: Preview = {
     decorators: [
@@ -9,10 +10,10 @@ const preview: Preview = {
             <>
                 <ColorSchemeScript />
                 <MantineProvider>
-                    <Story/>
+                    <Story />
                 </MantineProvider>
             </>
-        )
+        ),
     ],
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },

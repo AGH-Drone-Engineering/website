@@ -1,0 +1,26 @@
+.root {
+    --strip-height: 60px;
+    --agh-colors-green: #046b3c;
+    --agh-colors-red: #b4142c;
+}
+
+.strip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: calc(2 * var(--strip-height));
+
+    &.topStrip {
+        top: calc(-1 * var(--strip-height));
+        background-color: var(--agh-colors-green);
+    }
+
+    &.bottomStrip {
+        bottom: calc(-1 * var(--strip-height));
+        background-color: var(--agh-colors-red);
+    }
+}
+
+.content {
+    margin: var(--strip-height) 0;
+}

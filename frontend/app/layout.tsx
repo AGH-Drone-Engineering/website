@@ -5,6 +5,7 @@ import { getClient } from '~/api/apolloClient';
 import { Providers } from '~/context/Providers';
 import { GetFaviconUriQuery } from '~/models/graphql.generated';
 import '@mantine/core/styles.css';
+import '~/styles/global.css';
 
 export const faviconQuery: TypedDocumentNode<GetFaviconUriQuery> = gql`
     query GetFaviconUri {
