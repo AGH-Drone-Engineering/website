@@ -1,1 +1,1 @@
-export * from "./FloatingLanguageSwitcher";
+export * from './FloatingLanguageSwitcher';

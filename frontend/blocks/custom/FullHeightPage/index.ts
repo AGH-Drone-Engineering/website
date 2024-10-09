@@ -1,1 +1,1 @@
-export * from "./FullHeightPage";
+export * from './FullHeightPage';

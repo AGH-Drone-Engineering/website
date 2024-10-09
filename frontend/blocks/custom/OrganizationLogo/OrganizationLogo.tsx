@@ -1,6 +1,6 @@
 import { BlockComponent } from '~/blocks/types';
 import { useLogoData } from '~/context/LogoData';
-import classes from './PageLogo.module.css';
+// import classes from './PageLogo.module.css';
 
 export const OrganizationLogo: BlockComponent<
     'CustomOrganizationLogo'

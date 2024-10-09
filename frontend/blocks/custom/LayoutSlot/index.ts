@@ -1,1 +1,1 @@
-export * from "./LayoutSlot";
+export * from './LayoutSlot';

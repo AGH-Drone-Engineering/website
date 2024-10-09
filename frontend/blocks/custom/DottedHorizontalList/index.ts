@@ -1,1 +1,1 @@
-export * from "./DottedHorizontalList";
+export * from './DottedHorizontalList';
