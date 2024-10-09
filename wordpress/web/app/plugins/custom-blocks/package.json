@@ -48,6 +48,6 @@
         "prettier-eslint": "^16.3.0",
         "prettier-eslint-cli": "^7.1.0",
         "tsconfig-paths-webpack-plugin": "^4.1.0",
-        "typescript": "^5.2.2"
+        "typescript": "^5.6.3"
     }
 }
