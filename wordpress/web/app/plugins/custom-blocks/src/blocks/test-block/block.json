@@ -26,6 +26,7 @@
             "type": "string"
         }
     },
+    "allowedBlocks": [],
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css"
 }

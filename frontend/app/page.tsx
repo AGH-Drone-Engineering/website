@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getClient } from '~/api/apolloClient';
 import { seedQuery } from '~/api/queries/seedQuery';
 import { WordpressTemplateViewer } from '~/components/WordpressTemplateViewer';
+import { PageProviders } from '~/context/PageProviders';
 import { getSeoMetadata } from '~/utils/getSeoMetadata';
 
 export function generateMetadata(): Promise<Metadata> {
@@ -13,5 +14,9 @@ export default async function RootPage() {
         query: seedQuery,
     });
 
-    return <WordpressTemplateViewer seedQuery={data} />;
+    return (
+        <PageProviders seedQuery={data}>
+            <WordpressTemplateViewer seedQuery={data} />
+        </PageProviders>
+    );
 }

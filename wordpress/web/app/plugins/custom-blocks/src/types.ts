@@ -1,4 +1,8 @@
-import { BlockAttribute, BlockConfiguration } from '@wordpress/blocks';
+import {
+    BlockAttribute,
+    BlockConfiguration,
+    TemplateArray,
+} from '@wordpress/blocks';
 
 export type FieldType = Extract<
     BlockAttribute<unknown>,
@@ -7,13 +11,28 @@ export type FieldType = Extract<
 
 export interface EditorConfig<T extends Record<string, unknown>> {
     editorFields: Partial<Record<keyof T, EditorFieldConfig>>;
+    template?: {
+        lock?: boolean;
+        /**
+         * For examples on how to use this
+         * see [wp templates](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md#template)
+         */
+        blocks: TemplateArray;
+    };
+    blockTitle?: (
+        meta: BlockAttrsWithOptionalEditSave<T>,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        attrs: Partial<Record<keyof T, any>>,
+    ) => string;
 }
 
 export type BlockAttributes = Record<string, BlockAttribute<unknown>>;
 
 export type BlockAttrsWithOptionalEditSave<T extends Record<string, unknown>> =
     Omit<BlockConfiguration<T>, 'edit' | 'save'> &
-        Partial<Pick<BlockConfiguration<T>, 'edit' | 'save'>>;
+        Partial<Pick<BlockConfiguration<T>, 'edit' | 'save'>> & {
+            allowedBlocks?: string[];
+        };
 
 /**
  *  Should return true or undefined when the attr value is valid, and a string containing a validation error otherwise
@@ -28,6 +47,7 @@ export type EditorFieldConfig = {
     label?: string;
     order?: number;
     description?: string;
+    hidden?: boolean;
 } & (
     | {
           control: 'color';
@@ -75,5 +95,8 @@ export type EditorFieldConfig = {
           control: 'textarea';
           initialLines?: number;
           defaultValue?: string;
+      }
+    | {
+          control: 'url';
       }
 );

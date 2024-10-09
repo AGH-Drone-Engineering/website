@@ -1,18 +1,23 @@
 import { useMemo } from 'react';
 import { ApolloProvider } from '@apollo/client';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import {
+    InnerBlocks,
+    InspectorControls,
+    useBlockProps,
+} from '@wordpress/block-editor';
 import { BlockAttribute, BlockEditProps } from '@wordpress/blocks';
 import { PanelBody } from '@wordpress/components';
 import { store } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
+import cx from 'classnames';
 import { capitalize, flow, lowerCase } from 'lodash';
-import { getClient } from '../apollo';
+import { getClient } from '../../apollo';
 import {
     BlockAttrsWithOptionalEditSave,
     EditorConfig,
     EditorFieldConfig,
     FieldType,
-} from '../types';
+} from '../../types';
 import { FieldForConfigEntry } from './FieldForConfigEntry';
 import classes from './Edit.module.css';
 
@@ -59,7 +64,7 @@ const isRichText = (attribute: BlockAttribute<unknown>): boolean => typeof attri
 export const Edit = (
     meta: BlockAttrsWithOptionalEditSave<Record<string, unknown>>,
     config?: EditorConfig<Record<string, unknown>>,
-): React.FC<BlockEditProps<Record<string, unknown>>> => function CustomBlockEdit({ attributes, setAttributes }) {
+): React.FC<BlockEditProps<Record<string, unknown>>> => function CustomBlockEdit({ isSelected, attributes, setAttributes }) {
         const wpUrl: string | undefined = useSelect(
             // @ts-expect-error this function is not present in the typings
             select => select(store).getSite()?.url,
@@ -109,7 +114,11 @@ export const Edit = (
             }
         }
 
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            className: cx(classes.controls, {
+                [classes.controlsSelected]: isSelected,
+            }),
+        });
 
         if (!apolloClient) {
             return <div {...blockProps}>Loading...</div>;
@@ -118,7 +127,9 @@ export const Edit = (
         return (
             <ApolloProvider client={apolloClient}>
                 <div {...blockProps}>
-                    <h3 className={classes.title}>{meta.title}</h3>
+                    <h3 className={classes.title}>
+                        {config?.blockTitle?.(meta, attributes) ?? meta.title}
+                    </h3>
                     <InspectorControls>
                         <PanelBody title="Block settings">
                             {Object.entries(localConfig)
@@ -158,6 +169,23 @@ export const Edit = (
                                 />
                             ))}
                     </div>
+                    {(!meta.allowedBlocks ||
+                        meta.allowedBlocks.length !== 0) && (
+                        <>
+                            <div className={classes.innerBlocksLabel}>
+                                Children
+                            </div>
+                            <div className={classes.innerBlocksWrapper}>
+                                <InnerBlocks
+                                    allowedBlocks={meta.allowedBlocks}
+                                    template={config?.template?.blocks}
+                                    templateLock={
+                                        config?.template?.lock && 'all'
+                                    }
+                                />
+                            </div>
+                        </>
+                    )}
                 </div>
             </ApolloProvider>
         );
