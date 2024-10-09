@@ -132,7 +132,8 @@
                     "...",
                     "&nbsp;",
                     "):&nbsp;",
-                    "%"
+                    "%",
+                    "·"
                 ],
                 "noAttributeStrings": false
             }

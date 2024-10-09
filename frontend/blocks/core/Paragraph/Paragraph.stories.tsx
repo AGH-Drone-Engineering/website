@@ -3,10 +3,11 @@ import { ParagraphBlock as ParagraphBlockComponent } from './Paragraph';
 
 interface StoryArgs {
     text: string;
+    fontSize: string;
 }
 
 const meta: Meta<StoryArgs> = {
-    component: ({ text }) => (
+    component: ({ text, fontSize }) => (
         <ParagraphBlockComponent
             block={{
                 __typename: 'CoreParagraph',
@@ -17,10 +18,20 @@ const meta: Meta<StoryArgs> = {
                 attributes: {
                     __typename: 'CoreParagraphAttributes',
                     content: text,
+                    fontSize,
                 },
             }}
         />
     ),
+    argTypes: {
+        fontSize: {
+            control: 'select',
+            options: ['small', 'medium', 'large', 'x-large'],
+        },
+    },
+    parameters: {
+        layout: 'centered',
+    },
 };
 
 export default meta;
@@ -29,8 +40,5 @@ type Story = StoryObj<StoryArgs>;
 export const ParagraphBlock: Story = {
     args: {
         text: 'Lorem ipsum cośtam coś test',
-    },
-    parameters: {
-        layout: 'centered',
     },
 };

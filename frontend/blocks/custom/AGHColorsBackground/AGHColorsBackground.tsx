@@ -76,8 +76,6 @@ export const AGHColorsBackground: BlockComponent<
         };
     }, [hasMouse, mouseHandler, tiltHandler]);
 
-    console.log(block);
-
     return (
         <div className={classes.root}>
             <div
@@ -88,11 +86,7 @@ export const AGHColorsBackground: BlockComponent<
                 ref={bottomRef}
                 className={cx(classes.strip, classes.bottomStrip)}
             />
-            <div className={classes.content}>
-                {block.innerBlocks && (
-                    <WordPressBlockViewer blocks={block.innerBlocks} />
-                )}
-            </div>
+            <WordPressBlockViewer blocks={block.innerBlocks} />
         </div>
     );
 };

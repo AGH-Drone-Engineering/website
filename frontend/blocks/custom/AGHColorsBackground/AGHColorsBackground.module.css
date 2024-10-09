@@ -1,7 +1,20 @@
 .root {
-    --strip-height: 60px;
+    --strip-height: 30px;
     --agh-colors-green: #046b3c;
     --agh-colors-red: #b4142c;
+    min-height: 100%;
+
+    margin: var(--strip-height) 0;
+
+    @media (min-width: $mantine-breakpoint-md) {
+        --strip-height: 60px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    overflow: hidden;
 }
 
 .strip {
@@ -19,8 +32,4 @@
         bottom: calc(-1 * var(--strip-height));
         background-color: var(--agh-colors-red);
     }
-}
-
-.content {
-    margin: var(--strip-height) 0;
 }

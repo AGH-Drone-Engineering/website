@@ -8,13 +8,17 @@ import { getComponentForBlock } from '~/lib/getComponentForBlock';
 import { DataWithChildren } from '~/utils/flatListToHierarchical';
 
 interface WordPressBlockViewerProps {
-    blocks: DataWithChildren<EditorBlock>[];
+    blocks: DataWithChildren<EditorBlock>[] | null | undefined;
 }
 
 export const WordPressBlockViewer: React.FC<WordPressBlockViewerProps> = ({
     blocks,
 }) => {
     const blockMapping = useBlockMapping();
+
+    if (!blocks) {
+        return null;
+    }
 
     const blockComponents = blocks.map(block => {
         if (!block) {

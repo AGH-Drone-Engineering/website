@@ -28,6 +28,10 @@ export const FieldForConfigEntry: React.FC<FieldForConfigEntryProps> = ({
     setAttribute,
     className,
 }) => {
+    if (entry.hidden) {
+        return null;
+    }
+
     switch (entry.control) {
         case 'color':
             return (
@@ -145,8 +149,22 @@ export const FieldForConfigEntry: React.FC<FieldForConfigEntryProps> = ({
                     description={entry.description}
                 />
             );
+        case 'url':
+            return (
+                <TextControl
+                    type="url"
+                    value={attribute}
+                    onChange={setAttribute}
+                    label={entry.label}
+                    help={entry.description}
+                    className={className}
+                />
+            );
         default:
-            return <div className={className} />;
-        // assertUnreachable(entry.control);
+            assertUnreachable(entry);
     }
 };
+
+function assertUnreachable(_: never) {
+    throw new Error('This code should be unreachable!');
+}

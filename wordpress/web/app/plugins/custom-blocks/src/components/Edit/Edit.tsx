@@ -127,7 +127,9 @@ export const Edit = (
         return (
             <ApolloProvider client={apolloClient}>
                 <div {...blockProps}>
-                    <h3 className={classes.title}>{meta.title}</h3>
+                    <h3 className={classes.title}>
+                        {config?.blockTitle?.(meta, attributes) ?? meta.title}
+                    </h3>
                     <InspectorControls>
                         <PanelBody title="Block settings">
                             {Object.entries(localConfig)

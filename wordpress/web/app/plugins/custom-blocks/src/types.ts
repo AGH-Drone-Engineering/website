@@ -19,6 +19,11 @@ export interface EditorConfig<T extends Record<string, unknown>> {
          */
         blocks: TemplateArray;
     };
+    blockTitle?: (
+        meta: BlockAttrsWithOptionalEditSave<T>,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        attrs: Partial<Record<keyof T, any>>,
+    ) => string;
 }
 
 export type BlockAttributes = Record<string, BlockAttribute<unknown>>;
@@ -42,6 +47,7 @@ export type EditorFieldConfig = {
     label?: string;
     order?: number;
     description?: string;
+    hidden?: boolean;
 } & (
     | {
           control: 'color';
@@ -89,5 +95,8 @@ export type EditorFieldConfig = {
           control: 'textarea';
           initialLines?: number;
           defaultValue?: string;
+      }
+    | {
+          control: 'url';
       }
 );

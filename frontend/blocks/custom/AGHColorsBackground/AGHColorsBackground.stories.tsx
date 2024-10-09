@@ -20,6 +20,7 @@ const meta: Meta<StoryArgs> = {
                         attributes: {
                             __typename: 'CoreParagraphAttributes',
                             content,
+                            fontSize: 'x-large',
                         },
                         clientId: null,
                         parentClientId: null,
