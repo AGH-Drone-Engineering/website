@@ -29,6 +29,9 @@ const meta: Meta<StoryArgs> = {
             }}
         />
     ),
+    parameters: {
+        layout: 'centered',
+    },
 };
 
 export default meta;

@@ -37,7 +37,7 @@ const meta: Meta<StoryArgs> = {
 export default meta;
 type Story = StoryObj<StoryArgs>;
 
-export const ParagraphBlock: Story = {
+export const Paragraph: Story = {
     args: {
         text: 'Lorem ipsum cośtam coś test',
     },
