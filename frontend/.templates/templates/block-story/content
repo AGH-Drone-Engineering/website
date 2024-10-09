@@ -9,13 +9,13 @@ const meta: Meta<StoryArgs> = {
     component: ({ }) => (
         <<%= name %>Component
             block={{
-                __typename: '<%= name %>',
+                __typename: 'Custom<%= name %>',
                 clientId: null,
                 parentClientId: null,
                 name: null,
                 renderedHtml: null,
                 attributes: {
-                    __typename: '<%= name %>Attributes',
+                    __typename: 'Custom<%= name %>Attributes',
 
                 },
             }}

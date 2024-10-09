@@ -42,6 +42,18 @@ export const seedQuery: TypedDocumentNode<GetSeedNodeQuery> = gql`
             ... on Page {
                 isFrontPage
                 isPostsPage
+                language {
+                    id
+                    code
+                }
+                translations {
+                    id
+                    uri
+                    language {
+                        id
+                        code
+                    }
+                }
             }
         }
     }

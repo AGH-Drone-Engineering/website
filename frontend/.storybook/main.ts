@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs';
+import TSConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 const config: StorybookConfig = {
     stories: ['../**/*.stories.@(ts|tsx)'],
@@ -14,6 +15,17 @@ const config: StorybookConfig = {
     },
     docs: {
         autodocs: 'tag',
+    },
+    webpackFinal: config => {
+        const plugin = new TSConfigPathsPlugin();
+
+        if (config.resolve?.plugins) {
+            config.resolve.plugins.push(plugin);
+        } else if (config.resolve) {
+            config.resolve.plugins = [plugin];
+        }
+
+        return config;
     },
 };
 

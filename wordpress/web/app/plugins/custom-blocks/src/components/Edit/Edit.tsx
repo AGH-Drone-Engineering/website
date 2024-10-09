@@ -11,13 +11,13 @@ import { store } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import cx from 'classnames';
 import { capitalize, flow, lowerCase } from 'lodash';
-import { getClient } from '../apollo';
+import { getClient } from '../../apollo';
 import {
     BlockAttrsWithOptionalEditSave,
     EditorConfig,
     EditorFieldConfig,
     FieldType,
-} from '../types';
+} from '../../types';
 import { FieldForConfigEntry } from './FieldForConfigEntry';
 import classes from './Edit.module.css';
 
@@ -127,7 +127,9 @@ export const Edit = (
         return (
             <ApolloProvider client={apolloClient}>
                 <div {...blockProps}>
-                    <h3 className={classes.title}>{meta.title}</h3>
+                    <h3 className={classes.title}>
+                        {config?.blockTitle?.(meta, attributes) ?? meta.title}
+                    </h3>
                     <InspectorControls>
                         <PanelBody title="Block settings">
                             {Object.entries(localConfig)
