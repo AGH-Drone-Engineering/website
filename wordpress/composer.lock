@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7510d1462bfe4116eb0d87c8c5014ab3",
+    "content-hash": "d4379236e03e635101cb50520cfaa2e8",
     "packages": [
         {
             "name": "ashhitch/wp-graphql-yoast-seo",
@@ -1503,6 +1503,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/faustwp/"
+        },
+        {
+            "name": "wpackagist-plugin/file-upload-types",
+            "version": "1.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/file-upload-types/",
+                "reference": "tags/1.4.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/file-upload-types.1.4.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/file-upload-types/"
         },
         {
             "name": "wpackagist-plugin/polylang",
