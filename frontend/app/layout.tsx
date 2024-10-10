@@ -1,11 +1,10 @@
 import { PropsWithChildren } from 'react';
-import { gql, TypedDocumentNode } from '@apollo/client';
 import { ColorSchemeScript } from '@mantine/core';
 import cx from 'classnames';
 import { Merriweather, Merriweather_Sans } from 'next/font/google';
 import { getClient } from '~/api/apolloClient';
 import { Providers } from '~/context/Providers';
-import { GetInitialDataQuery } from '~/models/graphql.generated';
+import { initialQuery } from './layout.queries';
 import '@mantine/core/styles.css';
 import '~/styles/global.css';
 
@@ -20,22 +19,6 @@ const normalFont = Merriweather_Sans({
     subsets: ['latin', 'latin-ext'],
     display: 'swap',
 });
-
-export const initialQuery: TypedDocumentNode<GetInitialDataQuery> = gql`
-    query GetInitialData {
-        favicon {
-            sourceUrl
-        }
-        seo {
-            schema {
-                logo {
-                    sourceUrl
-                    altText
-                }
-            }
-        }
-    }
-`;
 
 export default async function RootLayout({ children }: PropsWithChildren) {
     const client = getClient();
