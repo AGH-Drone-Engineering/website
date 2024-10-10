@@ -33,8 +33,12 @@ export async function generateStaticParams(): Promise<Params[]> {
     return result;
 }
 
-export function generateMetadata({ params: { uri } }: { params: Params }) {
-    return getSeoMetadata('/' + uri.join('/'));
+export async function generateMetadata({
+    params: { uri },
+}: {
+    params: Params;
+}) {
+    return await getSeoMetadata('/' + uri.join('/'));
 }
 
 export default async function NodeByUriPage({
