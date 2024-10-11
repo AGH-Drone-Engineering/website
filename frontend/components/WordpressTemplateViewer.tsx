@@ -6,12 +6,12 @@ import { templateMapping } from '~/templates';
 
 interface WordpressTemplateViewerProps {
     seedQuery: GetSeedNodeQuery;
-    uri?: string;
+    uri: string;
 }
 
 export const WordpressTemplateViewer: React.FC<
     WordpressTemplateViewerProps
-> = ({ seedQuery, uri = '/' }) => {
+> = ({ seedQuery, uri }) => {
     const Template = getTemplate(seedQuery.nodeByUri, templateMapping);
 
     invariant(!!Template, `Template for "${uri}" could not be determined`);

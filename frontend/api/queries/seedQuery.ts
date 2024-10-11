@@ -1,7 +1,13 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { GetSeedNodeQuery } from '~/models/graphql.generated';
+import {
+    GetSeedNodeQuery,
+    GetSeedNodeQueryVariables,
+} from '~/models/graphql.generated';
 
-export const seedQuery: TypedDocumentNode<GetSeedNodeQuery> = gql`
+export const seedQuery: TypedDocumentNode<
+    GetSeedNodeQuery,
+    GetSeedNodeQueryVariables
+> = gql`
     query GetSeedNode($uri: String! = "/") {
         nodeByUri(uri: $uri) {
             __typename

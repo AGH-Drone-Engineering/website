@@ -39,6 +39,18 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Replace variables in .htaccess file
+        uses: iamazeem/substitute-action@v1
+        env:
+            WORDPRESS_DESTINATION_DIR: ${{ vars.WORDPRESS_DESTINATION_DIR }}
+            WEBPAGE_DESTINATION_DIR: ${{ vars.WEBPAGE_DESTINATION_DIR }}
+        with:
+            input-files: |
+                ./frontend/public/.htaccess
+            variables: |
+                WORDPRESS_DESTINATION_DIR
+                WEBPAGE_DESTINATION_DIR
+            enable-in-place: true
       - name: Build app
         run: npm run build
       - name: Upload files to the server

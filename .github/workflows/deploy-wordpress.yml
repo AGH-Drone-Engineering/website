@@ -91,27 +91,19 @@ jobs:
       - name: Remove blocks node_modules
         run: rm -rf node_modules
         working-directory: ./wordpress/web/app/plugins/custom-blocks
-      - name: Create outer htaccess file
-        run: |
-          cat << EOF > .htaccess
-          <IfModule mod_rewrite.c>
-          RewriteEngine on
-          RewriteCond %{REQUEST_URI} !${{ vars.WORDPRESS_DESTINATION_DIR }}/web/
-          RewriteRule ^(.*)$ /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/\$1 [L]
-          </IfModule>
-          EOF
-      - name: Create inner htaccess file
-        run: |
-          cat << EOF > web/.htaccess
-          <IfModule mod_rewrite.c>
-          RewriteEngine On
-          RewriteBase /${{ vars.WORDPRESS_DESTINATION_DIR }}/web
-          RewriteRule ^index\.php$ - [L]
-          RewriteCond %{REQUEST_FILENAME} !-f
-          RewriteCond %{REQUEST_FILENAME} !-d
-          RewriteRule . /${{ vars.WORDPRESS_DESTINATION_DIR }}/web/index.php [L]
-          </IfModule>
-          EOF
+      - name: Replace variables in .htaccess files
+        uses: iamazeem/substitute-action@v1
+        env:
+            WORDPRESS_DESTINATION_DIR: ${{ vars.WORDPRESS_DESTINATION_DIR }}
+            WEBPAGE_DESTINATION_DIR: ${{ vars.WEBPAGE_DESTINATION_DIR }}
+        with:
+            input-files: |
+                ./wordpress/.htaccess
+                ./wordpress/web/.htaccess
+            variables: |
+                WORDPRESS_DESTINATION_DIR
+                WEBPAGE_DESTINATION_DIR
+            enable-in-place: true
       - name: Upload files to the server
         uses: ./.github/actions/upload-files-to-server
         with:
