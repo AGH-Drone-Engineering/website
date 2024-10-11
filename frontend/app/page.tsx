@@ -16,7 +16,10 @@ export default async function RootPage() {
 
     return (
         <PageProviders seedQuery={data}>
-            <WordpressTemplateViewer seedQuery={data} />
+            <WordpressTemplateViewer
+                seedQuery={data}
+                uri="/"
+            />
         </PageProviders>
     );
 }
