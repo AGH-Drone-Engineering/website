@@ -42,6 +42,9 @@
         },
         "[php]": {
             "editor.defaultFormatter": "DEVSENSE.phptools-vscode"
+        },
+        "[postcss]": {
+            "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
         }
     }
 }

@@ -3,6 +3,7 @@ import { HeadingBlock } from './core/Heading';
 import { ParagraphBlock } from './core/Paragraph/Paragraph';
 import { AGHColorsBackground } from './custom/AGHColorsBackground';
 import { DottedHorizontalList } from './custom/DottedHorizontalList';
+import { ErrorPageLayout } from './custom/ErrorPageLayout';
 import { ExternalLink } from './custom/ExternalLink';
 import { FloatingLanguageSwitcher } from './custom/FloatingLanguageSwitcher';
 import { FullHeightPage } from './custom/FullHeightPage';
@@ -27,4 +28,5 @@ export const blockMapping: BlockMap = {
     CustomDottedHorizontalList: DottedHorizontalList,
     CoreFile: File,
     CustomFloatingLanguageSwitcher: FloatingLanguageSwitcher,
+    CustomErrorPageLayout: ErrorPageLayout,
 };
